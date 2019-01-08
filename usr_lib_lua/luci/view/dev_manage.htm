@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>优酷土豆路由宝--设备管理</title>
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/reset.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/widget.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/page/page_comn.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/icon/comn_icon.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/manage/dev_manage.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/popup.css?lv=<%=luciver%>">
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/lib/jquery.min.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/popup.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/doT.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/manage/dev_manage.js?lv=<%=luciver%>"></script>
+</head>
+<body>
+   <div class="header">
+     <div class="top-con clrfx">
+        <a href="#" class="logo">优酷土豆路由宝</a>
+        <div class="top-nav">
+          <ul class="clrfx">
+            <li><a href='<%=luci.dispatcher.build_url("admin","index")%>'>首页</a><i class="border"></i></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin", "wifiset")%>'>路由设置</a></li>
+            <li class="current"><a href='<%=luci.dispatcher.build_url("admin","devmanage")%>'>设备管理</a></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin", "systemstate")%>'>系统管理</a></li>
+         </ul>
+        </div>
+        <%include ("header")%>
+     </div> 
+   </div><!--.header-->
+   <input id="deviceList" type="text" value='<%=luci.dispatcher.build_url("api","devices","getDeviceList")%>' style="display:none" />
+   <input id="forbidUrl" type="text" value='<%=luci.dispatcher.build_url("api","devices","forbidConnect")%>' style="display:none" /> 
+   <input id="allowUrl" type="text" value='<%=luci.dispatcher.build_url("api","devices","allowConnect")%>' style="display:none" /> 
+   <input id="allowAllDevConn" type="text" value='<%=luci.dispatcher.build_url("api","devices","allowAll")%>' style="display:none" />
+   <div class="router-main" id="devManage">
+    <input id="footerurl" value='<%=luci.dispatcher.build_url("api","dashboard","getFooterInfo")%>' style="display:none"/>
+    <div class="router-con">
+      <span class="tp-arrow"></span>
+      <div class="manage-lists" id="devManageList">
+      <div class="dev-list" id="devList">
+       <div class="tb-head clrfx">
+        <div class="fl">
+        	<span class="icon-pc"></span><span class="connected"><span class="num"id="devConnNowNum"></span>台设备连接路由宝</span>
+        	<a href="###" class="refresh-btn" id="refreshDevListBtn"><span class="icon-refresh"></span>刷新</a>
+        	<a href="###" class="refresh-btn" id="refreshLoading" style="display:none"><span class="loading"></span>刷新</a>
+       	</div>
+        <div class="fr current-state">
+         <span>当前网络速度</span><span class="icon-down"></span><span><span class="num"id="netStateDownSpeed"></span>KB/s</span>
+         <span class="icon-upload"></span><span><span class="num" id="netStateUpSpeed"></span>KB/s</span><span class="normal-btn"style="display:none">测速</span>
+        </div>
+       </div><!--.tb-head-->
+       <script type="text/template" id="currentDevListTemplate">
+         	  <table class="comn-table" cellspacing="1" cellpadding="0">
+       	    <tr>
+        	   <th class="w1 first"><span class="left-radius"></span>设备</th><th class="w2">IP/MAC地址</th><th class="w3">连接方式</th><th class="w4">网速</th><th class="last"><span class="right-radius"></span>操作</th></tr>
+        	    {{if(!it.data) { }}
+        	   <tr class="no-data"><td colspan="5">暂无</td></tr>
+        	 {{ }else { }}
+        	 	 {{ for (var i = 0,l = it.data.length;i < l;i++) { }}
+	             <tr>
+	              <td>
+	               <div class="td-con">
+	                  {{if(it.data[i].devicetype=="PC") { }}
+                      <img src="<%=resource%>/../pcdn/images/devIcon/pc.png">
+                      {{ } else if(it.data[i].devicetype=="android") { }}
+                      	<img src="<%=resource%>/../pcdn/images/devIcon/anType.png">
+                      {{ } else if(it.data[i].devicetype=="iphone") { }}
+                       <img src="<%=resource%>/../pcdn/images/devIcon/apType.png">
+                       {{ } else { }}
+                       	<img src="<%=resource%>/../pcdn/images/devIcon/unknown.png">
+                     {{ } }}
+                     {{if(it.data[i].name=="none"){ }}
+                        {{=(it.data[i].mac).toUpperCase()}}
+                     {{ }else{ }}
+	                  {{=it.data[i].name}}
+	                  {{ } }}
+	              </div>
+	              </td>
+	              <td>
+	                <div class="td-con">
+	                 <p>{{=it.data[i].ip}}</p>
+                   <p>{{=(it.data[i].mac).toUpperCase()}}</p>
+                  </div>
+                 </td>
+	              <td class="move-del">
+	                <div class="td-con"> 
+	                 {{if(it.data[i].contype=="lan") { }}
+                       <span class="icon-wired"></span><span>有线连接</span>
+                      {{ } else if(it.data[i].contype=="wifi") { }}
+                       <span class="icon-wifi2"></span><span>WiFi连接</span>
+                      {{ } }}
+                    </div>
+                 </td>
+	              <td class="move-del"><div class="td-con"><p>上行：{{=it.data[i].up_rate}}KB/s</p><p>下行：{{=it.data[i].down_rate}}KB/s</p></div></td>
+	              <td><div class="td-con"><span class="normal-btn" data-query="{{=it.data[i].name}}|||{{=it.data[i].mac}}|||{{=it.data[i].ip}}">禁止连网</span></div></td>
+	             </tr>
+	           {{ } }}
+        	 	{{ } }}
+         </table>
+       </script>
+       <div id="devCurrentList">       
+        <table class="comn-table" cellspacing="1" cellpadding="0">
+       	<tr>
+        	<th class="w1 first"><span class="left-radius"></span>设备</th><th class="w2">IP/MAC地址</th><th class="w3">连接方式</th><th class="w4">网速</th><th class="last"><span class="right-radius"></span>操作</th></tr>
+        	<tr class="load-data">
+            <td colspan="5"><span class="loading"></span><span>正在努力加载中...</span></td>
+           </tr>
+       </table>
+       </div>
+      </div><!--.dev-lists-->
+      
+      <div class="black-list" id="blackList">
+       <div class="tb-head clrfx">
+         <span class="title">设备黑名单</span>
+         <div class="adv-opa fr"><a href="javascript:void(0)" class="click-btn" id="allAllowConn">全部允许连接</a><span id="noItemsDataAllow" style="display:none;font-size:12px;">全部允许连接</span></div>
+        </div>
+         <script type="text/template" id="currentBlackListTemplate" >
+         	 <table class="comn-table" cellspacing="1" cellpadding="0">
+         	  <tr>
+             <th class="w1 first"><span class="left-radius"></span>设备</th><th class="w2">IP/MAC地址</th><th class="last"><span class="right-radius"></span>操作</th>
+           </tr>
+           {{if(!it.data){ }}
+        	   <tr class="no-data"><td colspan="5">暂无</td></tr>
+        	 {{ }else { }}
+        	 	 {{ for (var i = 0,l = it.data.length;i < l;i++) { }}
+        	 	 	 <tr>
+	              <td>
+	               <div class="td-con">
+	                  {{if(it.data[i].name.indexOf("pc")>-1) { }}
+                      <img src="<%=resource%>/../pcdn/images/devIcon/pc.png">
+                      {{ } else if(it.data[i].name.indexOf("android")>-1) { }}
+                      	<img src="<%=resource%>/../pcdn/images/devIcon/anType.png">
+                      {{ } else if(it.data[i].name.indexOf("iphone")>-1) { }}
+                       <img src="<%=resource%>/../pcdn/images/devIcon/apType.png">
+                       {{ } else { }}
+                       	<img src="<%=resource%>/../pcdn/images/devIcon/unknown.png">
+                     {{ } }}
+	                    {{if(it.data[i].name=="none"){ }}
+                         {{=(it.data[i].mac).toUpperCase()}}
+                     {{ }else{ }}
+	                  {{=it.data[i].name}}
+	                  {{ } }}
+	              </div>
+	              </td>
+	              <td>
+	                <div class="td-con">
+	                 <p>{{=it.data[i].ip}}</p>
+                   <p>{{=(it.data[i].mac).toUpperCase()}}</p>
+                  </div>
+                 </td>
+                 <td><div class="td-con"><span class="gray-btn2" data-query="{{=it.data[i].name}}|||{{=it.data[i].mac}}|||{{=it.data[i].ip}}">允许连接</span></div></td>
+                </tr>
+        	 	 {{ } }}
+        	 {{ } }}
+         	 </table>
+         </script>
+         <div id="blackListAboutDev">
+         <table class="comn-table" cellspacing="1" cellpadding="0">
+        	<tr>
+            <th class="w1 first"><span class="left-radius"></span>设备</th><th class="w2">IP/MAC地址</th><th class="last"><span class="right-radius"></span>操作</th>
+          </tr>
+          <tr class="load-data">
+            <td colspan="5"><span class="loading"></span><span>正在努力加载中...</span></td>
+           </tr>
+        </table>
+        </div>
+      </div><!--.black-list-->
+      <div class="stat-data" style="display:none;">
+       <div class="tb-head clrfx">
+         <span class="title">终端流量统计</span>
+         <div class="adv-opa fr"><a href="javascript:void(0)" class="click-btn">清空</a></div>
+       </div>
+       <div class="stat-con">
+       </div>
+      </div><!--.stat-data-->
+     </div>   
+    </div>
+   </div>
+   <%include ("footer")%>
+</body>
+</html>

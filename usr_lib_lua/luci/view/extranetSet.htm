@@ -1,0 +1,202 @@
+﻿<%
+  local CommonFunc = require("luci.common.commonFunc")
+  local remote_addr = luci.http.getenv("REMOTE_ADDR")
+  local mac = luci.sys.net.ip4mac(remote_addr)
+  local wifi_map = CommonFunc.getWifiInfo()
+  local lanType = "line"
+  if wifi_map[mac] ~= nil then
+    lanType = "wifi"
+  end
+  local connectflag = "1"
+  if not CommonFunc.getWanGatewayenable() then
+      connectflag = "0" 
+  end
+%>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>优酷土豆路由宝--路由设置</title>
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/reset.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/widget.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/page/page_comn.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/form/form.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/icon/comn_icon.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/tab.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/popup.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/set/router_set.css?lv=<%=luciver%>">
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/lib/jquery.min.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/nodeClick.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/tab.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/popup.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/validate.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/xhr.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/set/outerNetSet.js?lv=<%=luciver%>"></script>
+</head>
+<body>
+    <div class="header">
+     <div class="top-con clrfx">
+        <a href="#" class="logo">优酷土豆路由宝</a>
+        <div class="top-nav">
+          <ul class="clrfx">
+            <li><a href='<%=luci.dispatcher.build_url("admin", "index")%>'>首页</a></li>
+            <li class="current"><a href='<%=luci.dispatcher.build_url("admin", "wifiset")%>'>路由设置</a></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin","devmanage")%>'>设备管理</a><i class="border"></i></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin", "systemstate")%>'>系统管理</a></li>
+         </ul>
+        </div>
+        <%include ("header")%>
+     </div> 
+   </div><!--.header--> 
+    <div class="bg-nav">
+    <div class="nav-con">
+    
+    <input id="saveConUrl" value='<%=luci.dispatcher.build_url("api","network","setWan")%>' style="display:none">
+    <input id="saveStatus" value='<%=luci.dispatcher.build_url("api","network","actionStatus")%>' style="display:none">
+    <input id="saveMacUrl" value='<%=luci.dispatcher.build_url("api","network","setCloneMAC")%>' style="display:none">
+    <input id="pppoeStartUrl" value='<%=luci.dispatcher.build_url("api","network","pppoeStart")%>' style="display:none">
+    <input id="pppoeStopUrl" value='<%=luci.dispatcher.build_url("api","network","pppoeStop")%>' style="display:none">
+    <input id="getPPPoEStatusUrl" value='<%=luci.dispatcher.build_url("api","network","getPPPoEStatus")%>' style="display:none">
+    <input id="footerurl" value='<%=luci.dispatcher.build_url("api","dashboard","getFooterInfo")%>' style="display:none">
+    <input id="wanInfo" type="text" value='<%=luci.dispatcher.build_url("api","network","getWanInfo")%>' style="display:none"/>	
+    <input id="connectiontype" value='<%=lanType%>' style="display:none"/>
+	<input id="connectflag" value='<%=connectflag%>' style="display:none"/>
+     <ul class="nav-lists clrfx">
+        <li><a href='<%=luci.dispatcher.build_url("admin", "wifiset")%>'><span class="icon wifi"></span><span>WiFi设置</span></a></li>
+        <li class="current"><span class="icon outer"></span ><span>外网设置</span></li>
+        <li><a href='<%=luci.dispatcher.build_url("admin", "seniorset")%>'><span class="icon adv"></span><span>高级设置</span></a></li>
+     </ul>
+    </div>
+   </div><!--.bg-nav-->
+   <div class="router-main">
+     <div class="router-con">
+       <div class="tab clrfx" id="outNetSetTab">
+          <div class="tab-con" id="outerNetTabCon" style="margin-left:220px;">
+            <div id="connMode" class="tab-panel">
+             <p class="tab-title">设置路由器接入互联网的方式</p>
+             <form class="comn-form connect-form" id="choiceConnType">
+               <div class="field-items">
+                <div class="pppoe-state">
+                	<span class="user-tip1" id="pppoeStateNotice"></span>
+                	<a href="###" id="disConnectBtn" style="display:none;">断开连接</a>
+                </div>
+                <div class="item rv-margin" style="position:relative;z-index:160;">
+                  <label class="outset-label">连接网络类型</label>
+                  <div class="select-overlay" id="disableSelectConnType" style="display:none;"></div>
+                  <div class="select" style="z-index:160;" id="connModeItems">
+                    <div class="sel-val"><span class="current-val">动态IP</span><i class="icon-arrow1"></i></div>
+                     <ul class="options">
+                     <li data-to="wideBand"><span class="text">宽带拨号</span><span class="icon-right"></span></li>
+                     <li data-to="dynamicIP"><span class="text">动态IP</span><span class="icon-right"></span></li>
+                     <li data-to="staticIP"><span class="text">静态IP</span><span class="icon-right"></span></li>
+                    </ul>
+                  </div>
+                </div><!--.item-->
+                <div class="select-panel" id="wideBand" style="display:none">
+                   <div class="item">
+                     <label class="outset-label" for="netUser">宽带账号</label>
+                     <div class="item-in">
+                      <input type="text" name="username" value="请输入宽带账号" class="comn-input gray33" id="netUser" data-rules="required"  data-required-error="宽带账号不能为空" data-msg="请输入宽带账号">
+                     </div>
+                   </div>
+                   <div class="item relative">
+                    <label class="outset-label" for="netPass">宽带密码</label>
+                    <span class="pw-holder">请输入宽带密码</span>
+                    <div class="item-in">
+                     <input type="password" name="password" class="comn-input" id="netPass"data-rules="required"  data-required-error="密码不能为空">
+                    </div>
+                   </div>
+                </div><!--.select-panel-->
+                <div class="sel-panel" id="staticIP" style="display:none">
+                  <div class="item">
+                   <label class="outset-label" for="ipAddress">IP地址</label>
+                   <div class="item-in">
+                    <input type="text" name="user" class="comn-input " id="ipaddr" data-rules="required|ip"  data-required-error="IP地址不能为空" data-ip-error="IP地址格式不正确">
+                   </div>
+                  </div>
+                  <div class="item">
+                   <label class="outset-label" for="netCKMask">子网掩码</label>
+                    <div class="item-in">
+                     <input type="text" name="netmask" class="comn-input" id="netCKMask" data-rules="required|mask"  data-required-error="子网掩码不能为空" data-mask-error="子网掩码格式不正确">
+                   </div>
+                  </div>
+                  <div class="item">
+                   <label class="outset-label" for="netGateWay">默认网关</label>
+                  <div class="item-in">
+                   <input type="text" name="gateway" class="comn-input" id="netGateWay" data-rules="required|ip"  data-required-error="网关地址不能为空" data-ip-error="网关地址格式不正确">
+                   </div>
+                  </div>
+                </div>
+                <BR>
+				<div class="item">
+                  <label class="outset-label" style="width: 80px;margin-right:11px;line-height:44px;">MAC克隆操作</label>
+                  <div class="select" id="WanMacAddress">
+                  <div class="sel-val">不克隆MAC地址<i class="icon-arrow1"></i></div>
+                    <ul class="options">
+                     <li data-to="noCloneMac"><span class="text">不克隆MAC地址</span><span class="icon-right"></span></li>
+                     <li data-to="cloneMac"><span class="text">克隆当前设备的MAC地址</span><span class="icon-right"></span></li>
+					 <li data-to="resetDefaultMac"><span class="text">使用出厂MAC地址</span><span class="icon-right"></span></li>
+                     <li data-to="inputMac"><span class="text">手动输入MAC地址</span><span class="icon-right"></span></li>
+                    </ul>
+                   </div>
+               </div>
+			   <p class="tab-tip2" style="margin-left:91px;margin-top: 0px">某些连网方式，需要指定的MAC地址，设置连网操作前请和网络管理员或运营商咨询确认。</p>
+			   <p class="tab-tip2" style="margin-left:91px;margin-top: 0px">选择MAC地址克隆后，在连网操作时会更改路由器的MAC地址，请谨慎选择。</p>
+			   <div class="item copy-view" id="WancloneMac" data-aboutMac=1>
+                    <label class="outset-label" style="width: 80px;margin-right:11px;line-height:44px;" id="WancurMacLabel">当前MAC地址</label><span class="mac-val" id="WancurMac" style="line-height:44px;"></span>
+               </div>
+			   <div class="item" id="WaninputMac" data-aboutMac=1 style="display:none">
+                    <label class="outset-label" style="width: 80px;margin-right:11px;line-height:44px;" >输入MAC地址</label> 
+                    <div class="item-in">
+                     <input type="text"  name="mac" class="comn-input" id="WaninputMacVal" data-rules="mac" data-mac-error="MAC地址格式不正确">
+                    </div>
+               </div>
+               </div><!--.field-items-->
+               <div class="save-btn" id="saveSetConnMode" style="margin-left:93px;">
+                 保存
+               </div>
+             </form>
+            </div><!--#connMode-->  
+			<div id="MACSet" class="tab-panel" style="display:none">
+             <p class="tab-title">修改路由器的MAC地址</p>
+             <p class="tab-tip2">建议使用使用路由器的出厂MAC地址</p>
+             <form action="" class="comn-form mac-set-form" id="macSetForm">
+              <div class="field-items">
+              <div class="item copy-view">
+              	 <label>路由器当前MAC</label>
+              	 <span class="mac-val" id="curRouterMac">*</span>
+              </div>
+               <div class="item">
+                <label>克隆方式</label>
+                <div class="select" id="MacAddress">
+                  <div class="sel-val">恢复出厂MAC地址<i class="icon-arrow1"></i></div>
+                    <ul class="options">
+                     <li data-to="resetDefaultMac"><span class="text">恢复出厂MAC地址</span><span class="icon-right"></span></li>
+                     <li data-to="cloneMac"><span class="text">克隆当前设备的MAC地址</span><span class="icon-right"></span></li>
+                     <li data-to="inputMac"><span class="text">手动输入MAC地址</span><span class="icon-right"></span></li>
+                    </ul>
+                   </div>
+               </div>
+               <div class="item copy-view" id="resetDefaultMac" data-aboutMac=1>
+                   路由器出厂MAC地址</label><span class="mac-val">94:FB:B2:6C:27:4C</span>
+                </div>
+                 <div class="item copy-view" id="cloneMac" data-aboutMac=1 style="display:none">
+                    <label>您的设备MAC</label><span class="mac-val" id="curMac">*</span>
+                </div>
+                  <div class="item" id="inputMac" data-aboutMac=1 style="display:none">
+                    <label>MAC地址</label> 
+                    <div class="item-in">
+                     <input type="text"  name="mac" class="comn-input" id="inputMacVal" data-rules="mac" data-mac-error="MAC地址格式不正确">
+                    </div>
+                </div>
+              </div>
+               <div class="save-btn" id="saveMacAddress">保存</div>
+             </form>
+            </div>
+          </div><!--#outerNetTabCon-->
+       </div><!--.tab-->
+     </div><!--.router-con-->
+ </div>
+ <%include ("footer")%>
+ </body>
+ </html>

@@ -1,0 +1,4 @@
+
+config 'core' 'upgrademode'
+        option mode '0'
+

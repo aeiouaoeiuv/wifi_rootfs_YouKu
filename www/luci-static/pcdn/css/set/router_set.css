@@ -1,0 +1,127 @@
+@charset "utf-8";
+.set-bg{background-color:#f7f8f8;padding-bottom:70px;border-bottom:solid 1px #f1f2f2;color:#333;}
+.set-con{width:990px;margin:0 auto;}
+.nav-lists .icon{background:url(../../images/set/nav_icons.png) 0 0 no-repeat;}
+.nav-lists .wifi{width:20px;height:18px;background-position:-1px -1px;}
+.nav-lists .outer{width:20px;height:20px;background-position:-22px -1px;}
+.nav-lists .inner{width:18px;height:14px;background-position:-44px -4px;}
+.nav-lists .adv{width:20px;height:20px;background-position:-64px 0;}
+.nav-lists .guid{width:19px;height:19px;background-position:-85px -1px;}
+/*.merge-mode{margin-left:76px;}*/
+.mode-choice span{display:inline-block;vertical-align:middle;}
+.mode-choice .chbox-val{margin-left:5px;}
+.merge-mode .gray{margin-left:22px;}
+.UPNp-choice{margin:38px 0  0 152px;}
+.UPNp-choice .save-btn{margin-top:48px;}
+.UPNp-choice .mode-choice{margin-bottom:8px;}
+.UPNp-choice .select-open,.UPNp-choice .select-close{margin-left:16px;}
+.set-panel{margin-top:40px;position: relative;}
+.mode-set{height:33px;font-size:14px;color:#333;background:#f7f8f8;z-index:12;}
+.visitor-set .mode-set{background:none;}
+.set-panel .mode-set{position:absolute;left:60px;top:-16px;padding:0 32px 0 9px;}
+.mode-set span{display:inline-block; vertical-align:middle;}
+.mode-set .select-open, 
+.mode-set .select-close{margin-left:25px;}
+.set-panel .mode-set .select-open, 
+.set-panel .mode-set .select-close{margin-left:25px;}
+.wifi-set .field-items{margin-left:57px;padding-bottom:16px;}
+.z12{z-index:12;}
+.z3{z-index:3;}
+.wifi-mode .pt-con{overflow:hidden;}
+.wifi-mode .mode-con{margin:0 20px 0 90px;}
+.wifi2{width:48px;height:48px;background:url(../../images/set/icon_wifi2.png) 0 0 no-repeat;}
+.wifi-mode{padding-bottom:30px;}
+.wifi-set .wifi-mode .save-btn{margin:26px 0 14px 62px;}
+.wifi-set .wifi-mode .load-btn{margin:26px 0 14px 62px;display:block;}
+.wifi-set .wifi-mode .disable-btn{margin:26px 0 14px 62px;display:block;}
+.wifi-mode .tt{font-size:16px;color:#333;}
+.ws-info{margin:16px 0 0 15px;}
+.visitor-set{margin-top:26px;}
+.visitor-set .gray{margin-top:4px;}
+.select-strength{left:28px;_width:128px;vertical-align:middle;}
+.connect-mode .item{margin-top:0;margin-bottom:20px;}
+.set-panel .mode-choice{margin:6px 0 0 94px;}
+.avatar{width:48px;height:48px;background: url(../../images/set/icon_act.png) 0 0 no-repeat;float:left;margin:8px 14px 0 0;}
+.wifi-set{padding-top:38px;}
+.router-con{padding-bottom:90px;}
+.wifi-mode  .comn-form .save-btn,.wifi-mode  .comn-form .load-btn{margin:48px 0 0 62px;display: block;}
+.wifi-about-account .field-items .save-btn,.wifi-about-account .field-items .load-btn{margin:26px 0 0 95px;display:block;}
+.wifi-about-account .field-items label{margin-right:20px;}
+.adv-set{padding-bottom:90px;}
+.connect-form{margin:30px 0 0 65px;}
+.dnsin-form{margin:30px 0 0 65px;}
+.mtu-set-form{margin:30px 0 0 80px;}
+.vpn-set-form{margin:34px 0 0 60px;}
+.add-tolink{color:#00a7e4;display:inline-block;margin-left:90px;font-size:12px;}
+.add-tolink:visited{color:#00a7e4;}
+.user-tip1{font-size:14px;color:#666;margin:0 0 4px 88px;}
+.DHCP-set-form{margin:14px 0 0 67px;}
+.mac-set-form{margin:40px 0 0 68px;}
+.tab-tip3{margin:12px 0 0 -70px;}
+.copy-view label{width:120px;}
+.network-form{margin:56px 0 0 70px;}
+.dhcp-tip1{margin-left:90px;line-height:18px;color:#999;}
+.copy-view{margin-left:0px;}
+.copy-view label{line-height:20px;}
+.mac-val{color:#333;}
+.dhcp-range{float:left;}
+.dev-lists{margin-top:30px;width:744px;}
+.field-items .dhcp-range input{text-align:center;padding:0;float: none;}
+.dev-lists .func-btns{margin:1px 0 0 30px;}
+.dev-lists table{width:744px;}
+.dev-lists .width1{width:304px;}
+.dev-lists .width2{width:182px;}
+.dev-lists .width3{width:140px;}
+.td-con img{width:34px;height:34px;vertical-align:middle;margin-right:6px;}
+.td-con .icon-wifi2,.td-con .icon-wired{margin-right:8px;}
+.tab-con .icon-right2{margin-right:8px;}
+.tb-head .adv-opa span{display:inline-block;margin:0 20px;color:#d0d0d0;}
+.tb-head .adv-opa a{color:#00a7e4;}
+.light-senior-set{margin:30px 0 0 90px;}
+.tb-head .refresh-btn{margin-left:30px;}
+.lgt-smcon .title,.lgt-smcon .set-btn{float:left;}
+.lgt-smcon .title{font-size:16px;color:#000;line-height:62px;width:82px;text-align:right;}
+.lgt-smcon .set-btn{margin-top:0;margin-left:0;}
+.tab-tip4{margin:10px 0 0 70px;}
+.tab-tip4 p{line-height:16px;font-size:12px;color:#999;}
+.write-in{position:relative;}
+.write-in .icon-write{position:absolute;top:20px;right:10px;z-index:15;}
+.light-senior-set .save-btn{margin:32px 0 0 82px;}
+.blacklist{width:744px;margin-top:40px;padding-bottom:172px;}
+.blacklist table{width:744px;} 
+.blacklist .width5{width:390px;}
+.blacklist .width6{width:238px;}
+.config-guid{width:990px;text-align:center;margin:0 auto;padding-top:54px;padding-bottom:70px;}
+.config-guid .title{font-size:#333;font-size:24px;}
+.config-guid .tip{color:#999;font-size:12px;margin-top:10px;}
+.config-step{width:495px;height:110px;background:url(../../images/set/config_step.png) 0 0 no-repeat;margin:58px auto 10px auto;}
+.start-config{width:140px;height:50px;border:none;margin:70px auto 0 auto;font-size:16px;line-height:50px;}
+.dhcp-range *{vertical-align:middle;}
+.dev-bind{width:498px;height:318px;}
+.dev-bind form .item-in{width:158px;}
+.dev-bind .comn-input{width:140px;}
+.dev-bind form{margin:45px 0 0 28px;}
+.dev-bind .pop-btns{left:114px;bottom:46px;}
+.domain-filter,.pop-addmac{width: 498px; height: 298px; top: 50%; left: 50%; margin-left: -249px; margin-top: -149px;}
+.pop-addmac .field-items .item-in{width:178px;}
+.pop-addmac .field-items .comn-input{width: 160px;}
+.pop-addmac .field-items .error-tip{margin:5px 0 0 8px;}
+.mtu-set-form .field-items .item-in{width:196px;}
+.tab-con .pw-holder{left:100px;}
+.tab-con .load-btn {margin: 46px 0 0 90px;display:block;}
+.mac-bind-table .width2{width:322px;}
+.pppoe-state{margin-bottom:6px;}
+.pppoe-state span, .pppoe-state a{float:left;}
+.pppoe-state a{color:#0079c1;margin-left:45px;}
+.wifi-set-complete{margin:-20px 0 20px 0;}
+.wifi-set-complete p{line-height:28px;}
+.wifi-set-complete .info{font-size:16px;}
+.wifi-set-complete .wifi-name{font-size:20px;}
+.wifi-mode2 .load-btn{width:240px;}
+.dns-state {margin: 20px 0 0 10px;}
+/*.field-items .outset-label{width:105px;line-height:44px;margin-right:16px;text-align:right;float:left;font-size:12px;}*/
+.select-overlay{width:324px;height:42px;background:#f8f8f8;z-index:200; position: absolute;top:0;left:90px;opacity:0.7;filter:alpha(opacity=70);}
+.set-light .error-tip{float:left;margin-top:16px;}
+.time-range .ref{color:#999;text-align:left;margin-top:4px;}
+.base-mode .ref{color:#999;text-align:left;margin-top:4px;margin-left:82px;}
+.outset-label{width: 80px;margin-right:11px;line-height:44px;}

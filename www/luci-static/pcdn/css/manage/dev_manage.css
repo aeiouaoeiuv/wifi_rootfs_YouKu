@@ -1,0 +1,31 @@
+@charset "utf-8";
+.router-main{_width:100%}
+.router-con{position:relative;}
+.tp-arrow{left:436px;top:0;position: absolute;overflow:hidden;_left:462px;}
+.manage-lists{width:934px;margin-left:28px;padding:45px 0 65px 0;}
+.manage-lists .tb-head{font-size:14px;color:#333;}
+.manage-lists .icon-pc{vertical-align:middle;}
+.connected{margin-left:20px;vertical-align:middle;*vertical-align:text-bottom;}
+.connected .num{font-size:18px;}
+.current-state span{display:inline-block;vertical-align:middle;}
+.current-state .icon-down{margin:0 8px 0 12px;}
+.current-state .icon-upload{margin:0 8px 0 12px;}
+.current-state .normal-btn{margin-left:16px;}
+.manage-lists .comn-table{width:934px;}
+.dev-list .refresh-btn{display: inline-block;margin-left:10px;vertical-align:middle;}
+.dev-list .w1{width:302px;}
+.dev-list .w2{width:280px;}
+.dev-list .w3{width:122px;}
+.dev-list .w4{width:128px;}
+.dev-list .w5{width:110px;}
+.td-con img{width:36px;height:36px;display: inline-block;vertical-align:middle;margin-right:5px;}
+.dev-list .icon-usb,.dev-list .icon-wifi{margin-right:5px;}
+.black-list{margin-top:36px;}
+.black-list .w1{width:303px;}
+.black-list .w2{width:522px;}
+.stat-data{margin-top:36px;}
+.stat-con{height:352px;border:solid 1px #d7dadd;}
+.sp-put{width:32px;height:22px;border:solid 1px #d0d0d0;text-align:center;line-height:22px\9;}
+.finishWrite{display:none;}
+.td-con .icon-wifi2, .td-con .icon-wired {margin-right: 8px;}
+

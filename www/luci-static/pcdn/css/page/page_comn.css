@@ -1,0 +1,48 @@
+@charset "utf-8";
+.header{height:46px;background-color:#fff;}
+.top-con{width:990px;margin:0 auto;}
+.top-con .logo{height:24px;background:url(../../images/comn/top_logo.png) 0 0 no-repeat;display:block;float:left;font-size:16px;color:#333;line-height:24px;padding-left:34px;margin:11px 0 0 22px;}
+.top-nav{float:left;margin:8px 0 0 50px;_width:400px;}
+.top-nav li{float:left;width:84px;height:30px;text-align:center;margin-right:10px;position:relative;}
+.top-nav .border{width:1px;height:20px;background-color:#d7dadd;overflow:hidden;position:absolute;top:5px;right:-5px;}
+.top-nav li a{font-size:16px;color:#333;display:block;line-height:30px;}
+.top-nav li a:visited{color:#333;}
+.top-nav li a:hover{color:#00a7e4;}
+.top-nav .current a{background:url(../../images/comn/bg_current.png) 0 0 no-repeat;}
+.top-link{float:right;margin:14px 12px 0 0;color:#333;position: relative;*z-index:26;}
+.top-link a{color:#333;}
+.top-link .line{margin:0 6px;color:#333;}
+.top-link a,.top-link .line{float:left;}
+.top-link a:visited{color:#333;}
+.top-link a:hover,.top-link .name-con:hover{color:#00a7e4;}
+.download-app{width: 160px;height: 190px;position: absolute;left:-35px;top:20px;z-index: 30;background:#fff;}
+.down-app{float: left;position: relative;}
+.app-down-items li{vertical-align: bottom;_float: left;position: relative;color:#666;}
+.app-down-items .item{width:140px;height:80px;margin:0 10px 0 10px;text-align: center;overflow: hidden;cursor: pointer;}
+.app-down-items .item:hover{background:#f3f3f3;}
+.app-down-items .item i{width:32px;height: 32px;background: url(../../images/comn/download_btn_clients.png) 0 0 ;display: block;margin: 12px auto 7px auto;}
+.app-down-items .first-item{border-bottom:solid 1px #f3f3f3;height:79px;margin-top:20px;}
+.app-down-items .item .an{background-position:0 0;}
+.app-down-items .code{width:123px;height:100px;border-top:solid 1px #f4f4f4;border-right:solid 1px #f4f4f4;position: absolute;top:-8px;right:160px;z-index:40;background:#fff;text-align: center;color:#666;}
+.app-down-items .code  img{width:70px;height:70px;margin: 6px auto 0 auto;display: block;}
+.app-down-items .item .wp{background-position:-32px 0;}
+.top-link .user-name .i-you{width:16px;height:16px;background: url(../../images/comn/top_you.png) 0 center no-repeat;display:inline-block; vertical-align: middle;margin-right:5px;}
+.top-link .name-con,.top-link .name-con:visited{color:#333;}
+.app-down-items .item .gray{color:#b8b8b8;}
+.tp-arrow{width:26px;height:15px;background:url(../../images/comn/current_arrow.png) 0 0 no-repeat;display:block;position:absolute;z-index:10;top:0;left:245px;}
+.bg-nav{height:45px;background:url(../../images/comn/bg_nav.png) 0 0 repeat-x;margin-top:8px;overflow:hidden;}
+.nav-con{width:990px;margin:0 auto;}
+.nav-lists{margin-left:210px;color:#666;font-size:14px;}
+.nav-lists li{width:120px;float:left;text-align:center;margin:2px 0 0 10px;}
+.nav-lists li a{height:41px;line-height:41px;display:block;cursor:pointer;}
+.nav-lists .icon{margin-right:8px;}
+.nav-con li span{color:#666;vertical-align:middle;display:inline-block;}
+.nav-con li a:hover{background:#d1eef9;}
+.nav-con li a:hover span{color:#0079c1;}
+.nav-con .current{height:45px;line-height:45px;background:url(../../images/comn/bg_nav_current.png) 0 0 no-repeat;margin:0 0 0 10px;}
+.nav-con .long-current{width:145px;height:45px;line-height:45px;background:url(../../images/comn/bg_long_current.png) 0 0 no-repeat;margin:0 0 0 10px;}
+.nav-con .long{width:145px;}
+.footer{margin:18px 0 20px 0;}
+.footer p{text-align:center;line-height:18px;}
+.footer span{display: inline-block;color:#999;}
+.footer p .np{margin-right:14px;}

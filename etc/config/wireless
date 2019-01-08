@@ -1,0 +1,35 @@
+
+config wifi-device 'mt7610'
+	option type 'mt7610'
+	option vendor 'ralink'
+	option band '5G'
+	option channel '0'
+	option autoch '2'
+
+config wifi-iface
+	option device 'mt7610'
+	option ifname 'rai0'
+	option network 'lan'
+	option mode 'ap'
+	option ssid 'OpenWrt-mt7610'
+	option encryption 'psk2'
+	option key '12345678'
+
+config wifi-device 'mt7620'
+	option type 'mt7620'
+	option vendor 'ralink'
+	option band '2.4G'
+	option channel 'auto'
+	option autoch '2'
+	option disabled '0'
+
+config wifi-iface
+	option device 'mt7620'
+	option ifname 'ra0'
+	option network 'lan'
+	option mode 'ap'
+	option ssid 'SmarTecs_YK'
+	option encryption 'psk2'
+	option key 'smartecs123654'
+	option hidden '0'
+

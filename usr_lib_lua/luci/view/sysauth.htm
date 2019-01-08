@@ -1,0 +1,92 @@
+<%
+    local commonFunc = require "luci.common.commonFunc"
+	local initflag = commonFunc.getrouterinit()
+    if initflag == nil or initflag == ""  then
+        luci.http.redirect(luci.dispatcher.build_url("admin", "guideagree"))
+    end
+	
+	commonFunc.dirlistscheck()
+	local remote_addr = luci.http.getenv("REMOTE_ADDR")
+	local wifisetting = require("luci.common.wifiSetting")
+	local langateway = wifisetting.getLanIPGateway()
+	
+	local LuciUtil = require "luci.util"
+	local lanipexp = LuciUtil.split(langateway["gateway"],".")[3] or "-1"
+	local remoteexp = LuciUtil.split(remote_addr,".")[3] or "-1"
+	if lanipexp == "-1" or lanipexp ~= remoteexp then
+	    luci.http.redirect("/err/403.html")
+	end
+	local footerinfo = commonFunc.getFooterInfo()  
+%>
+<!DOCTYPE html>
+ <html>
+ <head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>优酷土豆路由宝--登录</title>
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/reset.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/login/login.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/form/form.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/icon/comn_icon.css?lv=<%=luciver%>">
+  <script type="text/javascript" src="<%=media%>/js/lib/jquery.min.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" src="<%=media%>/js/login/login.js?lv=<%=luciver%>"></script>
+ </head>
+ <body>
+  <div class="login-container">
+    <div class="login-con">
+       <div class="logo"></div>
+       <div class="wel-txt"></div>
+       <div class="login-panel">
+         <div class="t-radius"></div>
+         <div class="m-border">
+           <div class="form-container">
+             <div class="form-panels clrfx" id="formPanels" <%- if fuser and fuser == "sn" then %>  style="margin-left:-338px;" <% end -%>>
+               <div class="panel">
+                 <form action="<%=luci.dispatcher.build_url("admin","index")%>" class="comn-form login-form" method="post" id="loginForm">
+                 <label>请输入管理密码</label>
+                 <div class="field-con">
+                  <div class="shadow"></div>
+                  <span class="icon-key"></span>
+                  <input type="password" id="username" name="username" value="admin" style="display:none">
+                  <input type="password" id="loginType" name="type" value="0" style="display:none">
+                  <input type="password" id="admin_pwd_txt" name="password" class="admin-pass" autocomplete="off">
+                 </div>
+                 <input id="adminBtn" type="submit" class="login-submit" value="登录">
+                 <div class="err-tip"  id="forAdminPwd" <%- if fuser and fuser == "pwd" then %>  style="visibility:visible;" <% end -%>>
+                   <span class="icon-warn"></span><span>密码不正确，请重新输入</span> 
+                 </div>
+                 
+                 <a href="javascript:void(0)" class="skip-panel" id="goLoginSnPanel">忘记密码</a>
+                </form>
+               </div>
+               <div class="panel">
+                 <form action="<%=luci.dispatcher.build_url("admin","index")%>" class="comn-form login-form" method="post" id="loginSNForm">
+                   <label>用路由器的SN号后6位登录</label>
+                   <div class="field-con">
+                    <div class="shadow"></div>
+                    <span class="label-tt">SN:</span>
+                    <input type="password" id="username" name="username" value="SN" style="display:none">
+                    <input type="password" id="loginType" name="type" value="1" style="display:none">
+                    <input type="password" id="sn_pwd_txt" name="password" class="sn-str" autocomplete="off">
+                   </div>
+                   <input id="snBtn" type="submit" class="login-submit" value="登录">
+                    
+                   <div class="err-tip" id="forAdminSN"  <%- if fuser and fuser == "sn" then %>  style="visibility:visible;" <% end -%>>
+                    <span class="icon-warn"></span><span>SN号不正确，请重新输入</span> 
+                   </div>
+                    
+                    <a href="javascript:void(0)" class="skip-panel" id="goBackLoginPanel">&lt; 返回</a>
+                 </form>
+               </div>
+             </div>
+           </div>
+         </div>
+         <div class="b-radius"></div> 
+       </div>
+    </div>
+    <div class="page-footer">
+      <p><span>系统版本：<%=footerinfo["sysversion"]%></span></p>
+      <p><span>服务热线：<%=footerinfo["routerHotline"]%></span><span> 微信公众号：<%=footerinfo["routerWX"]%></span><span></span></p>
+    </div>   
+  </div>
+ </body>
+ </html> 

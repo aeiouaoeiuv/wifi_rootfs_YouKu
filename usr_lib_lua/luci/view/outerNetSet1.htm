@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>优酷路由设置</title>
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/reset.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/widget.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/page/page_comn.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/set/router_set.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/form/form.css?lv=<%=luciver%>">
+  <script type="text/javascript" src="<%=media%>/js/lib/jquery.min.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" src="<%=media%>/js/set/set.js?lv=<%=luciver%>"></script>
+</head>
+<body>
+ <body>
+ <div class="set-container">
+  <div class="header">
+     <div class="top-con clrfx">
+        <a href="#" class="logo">优酷路由器</a>
+        <div class="top-nav">
+          <ul class="clrfx">
+            <li><a href="#">首页</a></li>
+            <li class="current"><a href="#">路由设置</a></li>
+            <li><a href="#">设备管理</a><i class="border"></i></li>
+            <li><a href="#">系统信息</a></li>
+         </ul>
+        </div>
+        <div class="top-link">
+          <a href="#" class="user-name" id="youkuuser">sprtree2012@gmail.com</a>|<a href="#">下载手机app</a>|<a href="#">论坛</a>
+       </div>
+     </div> 
+   </div><!--.header-->
+    <div class="set-nav">
+     <div class="nav-con">
+     <ul class="nav-lists clrfx">
+        <li><a href="#"><span class="icon wifi-set"></span><span>WiFi设置</span></a></li>
+        <li><a href="#"><span class="icon outer-set"></span ><span>外网设置</span></a></li>
+        <li><span class="icon inner-set"></span><span>内网设置</span></li>
+        <li><a href="#"><span class="icon adv-set"></span><span>高级设置</span></a></li>
+        <li><a href="#"><span class="icon config-set"></span><span>配置引导</span></a></li>
+     </ul>
+    </div>
+   </div><!--.set-nav--> 
+   <div class="set-bg">
+     <div class="set-con">
+       <div class="set-tab clrfx">
+          <div class="tab-index">
+           <ul>
+            <li class="current" data-to="netWorkSet">基本设置<span class="r-arrow"></span><span class="current-arrow"></span></li>
+            <li data-to="DHCPSet">DHCP服务<span class="r-arrow"></span><span class="current-arrow"></span></li>
+            <li data>MAC地址绑定<span class="r-arrow"></span><span class="current-arrow"></span></li>
+           </ul>
+         </div>
+         <div class="tab-con">
+          <div id="netWorkSet" style="display:none">
+           <p class="tab-title">设置网关、子网掩码</p>
+           <form action="" class="comn-form network-form">
+             <div class="field-items">
+               <div class="item">
+                <label for="netWork">网关</label>
+                <input type="text" name="network" value="10.10.121.1" class="comn-input gray33" id="netWork" >
+                <span class="error-tip" id="netWorkErr"><span class="icon-warn"></span><span class="errtxt"></span></span>
+              </div>
+              <div class="item">
+                <label for="subNetMask">子网掩码</label>
+                <input type="text" name="network" value="10.10.121.1" class="comn-input gray33" id="subNetMask" >
+                <span class="error-tip" id="subNetMaskErr"><span class="icon-warn"></span><span class="errtxt"></span></span>
+              </div> 
+               <div class="save-btn" id="saveNetWork">
+                <span class="icon-loading"></span><span>保存</span>
+               </div>
+               <div class="save-tip" id="saveNetWorkSucc">
+                 <span class="icon-right"></span><span>保存成功</span>
+               </div>   
+             </div><!--.field-items-->
+           </form> 
+          </div><!--#netWorkSet-->
+          <div id="DHCPSet" style="display:none">
+            <p class="tab-title">为使用此路由器上网的设备自动分配IP地址</p>
+            <form action="" class="comn-form">
+               <div class="field-items">
+                 <div class="item">
+                  <label>DHCP服务</label><span class="select-open" id="DHCPManage"></span>
+                 </div>
+                 <div class="dhcp-tip1">
+                   <p>关闭DHCP服务后，路由器不再为连接的设备自动分配IP地址，</p>
+                   <p>需要手动为设备设置IP地址、子网掩码、默认网关、DNS服务后才能上网</p>
+                 </div>
+                 <div class="item">
+                  <label>IP分配范围</label>
+                  <span class="dhcp-range">
+                   192.168.111.&nbsp;<input type="text" name="from" class="comn-input short1" value="10" id="rangeFrom1">&nbsp;&nbsp;——&nbsp;&nbsp;<input type="text" name="to" class="comn-input short1" value="249" id="rangeTo1">
+                  </span>
+                   <span class="error-tip" id="DHCPErr"><span class="icon-warn"></span><span class="errtxt"></span></span>
+               </div>
+               </div>
+               <div class="save-btn" id="saveDHCPSet">
+                <span class="icon-loading"></span><span>保存</span>
+               </div>
+               <div class="save-tip" id="saveDHCPSetSucc">
+                 <span class="icon-right"></span><span>保存成功</span>
+               </div>
+            </form>
+          </div><!--#DHCPSet-->
+          <div id="macBind" style="display:block">
+            <p class="tab-title">绑定设备的MAC地址</p>
+            <p class="tab-tip2">把设备的物理地址（MAC地址）和IP地址绑定，即该设备使用固定IP</p>
+            <div class="dev-lists func-panel">
+             <div class="tb-head clrfx">
+              <span class="title">当前连接的设备</span>
+              <div class="func-btns fr">
+               <span class="refresh-btn"><span class="icon-refresh"></span>刷新</span>  
+              </div>
+             </div>
+             <table class="comn-table">
+              <tr><th class="width1">设备</th><th class="width2">IP/MAC地址</th><th class="width3">连接方式</th><th class="width4">操作</th></tr> 
+              <tr>
+               <td>
+                <div class="td-con">
+                  <img sr="http://static.youku.com/index/img/header/yklogo.png">Andy’s Computer
+                </div>  
+               </td>
+               <td>
+                 <div class="td-con">
+                 <p>IP:192.168.1.26</p>
+                 <p>MAC:94:FB:B2:6C:27:4C</p>
+                </div>
+               </td>
+               <td>
+                <div class="td-con">
+                  <span class="usb-icon"></span><span>USB连接</span>
+                </div>
+               </td>
+               <td>
+                <a>绑定</a>  
+               </td>
+              </tr>
+               <tr>
+               <td>
+                <div class="td-con">
+                  <img sr="http://static.youku.com/index/img/header/yklogo.png">Andy’s Computer
+                </div>  
+               </td>
+               <td>
+                 <div class="td-con">
+                 <p>IP:192.168.1.26</p>
+                 <p>MAC:94:FB:B2:6C:27:4C</p>
+                </div>
+               </td>
+               <td>
+                <div class="td-con">
+                  <span class="usb-icon"></span><span>USB连接</span>
+                </div>
+               </td>
+               <td>
+                <a>绑定</a>  
+               </td>
+              </tr>
+
+             </table>
+            </div> 
+            <div class="dev-lists func-panel">
+              <div class="tb-head clrfx">
+              <span class="title">已绑定MAC地址的设备</span>
+             </div>
+               <table class="comn-table">
+              <tr><th class="width1">设备</th><th class="width2">IP/MAC地址</th><th class="width3">连接方式</th><th class="width4">操作</th></tr> 
+              <tr>
+               <td>
+                <div class="td-con">
+                  <img sr="http://static.youku.com/index/img/header/yklogo.png">Andy’s Computer
+                </div>  
+               </td>
+               <td>
+                 <div class="td-con">
+                 <p>IP:192.168.1.26</p>
+                 <p>MAC:94:FB:B2:6C:27:4C</p>
+                </div>
+               </td>
+               <td>
+                <div class="td-con">
+                  <span class="usb-icon"></span><span>USB连接</span>
+                </div>
+               </td>
+               <td>
+                <a>绑定</a>  
+               </td>
+              </tr>
+             </table>
+            </div>
+          </div><!--.#macBind-->
+        </div><!--.tab-con-->
+       </div><!--.set-tab-->
+     </div>
+   </div><!--.set-bg-->
+ </div>
+  <div class="footer">
+    <p>
+    <span>系统版本：V1.0.00920 稳定版</span><span>MAC地址：8C:BE:BE:26:8E:5F</span><span>公网IP地址：123.124.125.122</span>
+     </p>
+    <p>
+    <span>© 2014 优酷路由器</span><span>QQ群：457865478</span><span>微信公众号： youkurouter</span><span>服务热线：400 500 1234</span>
+     </p>
+   </div>
+</body>
+</html>
+ </body>
+ </html>

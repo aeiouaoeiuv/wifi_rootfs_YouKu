@@ -1,0 +1,9 @@
+
+config core 'common'
+	option lightmode '0'
+	option lighttime '22:00-08:00'
+	option accmode '0'
+	option admin 'b1abf60ec87042be39e57bdf0c1ad7292fa6930a'
+	option init 'true'
+	option updatetime '20150415'
+

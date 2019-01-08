@@ -1,0 +1,36 @@
+#!/bin/sh
+#=============================================================================
+#  Copyright (c) YOUKU, 2014. All rights reserved.
+# 
+#  @author    yang <yangjingyu@youku.com>
+# 
+#  @brief	  
+# 
+#  Revision History:
+#=============================================================================
+#init_debug=99 DEVNAME=mmcblk0 USER=root ACTION=add HOME=/ SEQNUM=1388 HOTPLUG_TYPE=block MAJOR=179 DEVPATH=/devices/platform/mtk-sd.0/mmc_host/mmc0/mmc0:0007/block/mmc#blk0 LOGNAME=root TERM=linux SUBSYSTEM=block PATH=/bin:/sbin:/usr/bin:/usr/sbin MINOR=0 PWD=/ DEVTYPE=disk
+
+#init_debug=99 DEVNAME=mmcblk0p1 USER=root ACTION=add HOME=/ SEQNUM=1389 HOTPLUG_TYPE=block MAJOR=179 DEVPATH=/devices/platform/mtk-sd.0/mmc_host/mmc0/mmc0:0007/block/m#mcblk0/mmcblk0p1 LOGNAME=root TERM=linux SUBSYSTEM=block PATH=/bin:/sbin:/usr/bin:/usr/sbin MINOR=1 PWD=/ DEVTYPE=partition
+
+/etc/youku/rc.main ylog "hotplug: $@ "  #`env`"
+
+dev=
+if [ $MAJOR = 179 ]; then
+	dev=tf			
+elif [ $MAJOR = 8 ]; then
+	dev=usb
+else
+	return 1
+fi
+
+/etc/youku/rc.main ylog "hotplug: action=$ACTION name=$DEVNAME type=$DEVTYPE subsystem=$SUBSYSTEM major=$MAJOR minor=$MINOR dev=$dev"
+
+case $ACTION in
+	add)
+	#	[ $DEVTYPE = "partition" ] && /etc/youku/rc.main "$dev" mount $DEVNAME
+		[ $DEVTYPE = "disk" ] && /etc/youku/rc.main "$dev" mount $DEVNAME
+		;;
+	remove)
+		[ $DEVTYPE = "disk" ] && /etc/youku/rc.main "$dev" umount $DEVNAME
+		;;
+esac

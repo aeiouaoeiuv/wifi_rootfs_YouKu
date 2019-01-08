@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>优酷土豆路由宝--系统信息</title>
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/reset.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/widget.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/page/page_comn.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/icon/comn_icon.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/form/form.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/system/system_info.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/popup.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/tab.css?lv=<%=luciver%>">
+  <script type="text/javascript" src="<%=media%>/js/lib/jquery.min.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" src="<%=media%>/js/lib/jquery.form.js?lv=<%=luciver%>"></script>
+</head>
+<body>
+  <iframe name="iframeUpload" id="iframeUpload" style="display:none"></iframe>
+  <div class="header">
+     <div class="top-con clrfx">
+        <a href="#" class="logo">优酷土豆路由宝</a>
+        <div class="top-nav">
+          <ul class="clrfx">
+            <li><a href='<%=luci.dispatcher.build_url("admin", "index")%>'>首页</a><i class="border"></i></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin", "wifiset")%>'>路由设置</a><i class="border"></i></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin","devmanage")%>'>设备管理</a></li>
+            <li class="current"><a href='<%=luci.dispatcher.build_url("admin", "systemstate")%>'>系统管理</a></li>
+         </ul>
+        </div>
+        <%include ("header")%>
+     </div> 
+   </div><!--.header-->
+   <div class="bg-nav">
+     <div class="nav-con">
+      <ul class="nav-lists clrfx">
+        <!--<li><a href='<%=luci.dispatcher.build_url("admin", "systemstate")%>'><span class="icon meter"></span><span>系统状态</span></a></li>-->
+        <li class="current"><span class="icon conv"></span><span>系统升级</span></li>
+		<li><a href='<%=luci.dispatcher.build_url("admin", "managepassword")%>'><span class="icon key"></span ><span>管理密码</span></a></li>
+        <li><a href='<%=luci.dispatcher.build_url("admin", "restartrouter")%>'><span class="icon power"></span><span>重启路由</span></a></li>
+        <li><a href='<%=luci.dispatcher.build_url("admin", "resetfactory")%>'><span class="icon fac-default"></span><span>恢复出厂设置</span></a></li>
+      </ul>
+     </div>
+   </div><!--.bg-nav-->
+  <div class="router-main check-update">
+   <div class="router-con clrfx">
+    <div class="tab" id="checkUpGardeTab">
+    	<input id="footerurl" value='<%=luci.dispatcher.build_url("api","dashboard","getFooterInfo")%>' style="display:none"/>
+    	<input id="chkupgradeurl" value='<%=luci.dispatcher.build_url("api", "system", "chkupgrade")%>' style="display:none"/>
+    	<input id="startupgradeurl" value='<%=luci.dispatcher.build_url("api", "system", "doupgrade")%>' style="display:none"/>
+    	<input id="getupgradestatusurl" value='<%=luci.dispatcher.build_url("api", "system", "getupgradestatus")%>' style="display:none"/>
+    	<input id="setupgrademodeurl" value='<%=luci.dispatcher.build_url("api", "system", "upgradesetting")%>' style="display:none"/>
+		<input id="uploadimageurl" value='<%=luci.dispatcher.build_url("api", "system", "uploadrom")%>' style="display:none"/>
+		<input id="upgradeimageurl" value='<%=luci.dispatcher.build_url("api", "system", "flashrom")%>' style="display:none"/>
+		<input id="deleteimageurl" value='<%=luci.dispatcher.build_url("api", "system", "deleteimage")%>' style="display:none"/>
+      <div class="tab-index">
+        <ul>
+         <li class="current" data-target="detectUpdates">升级检测<span class="r-arrow"></span><span class="current-arrow"></span></li>
+         <li data-target="manualUpdate">手动升级<span class="r-arrow"></span><span class="current-arrow"></span></li>
+         <li data-target="updatesSet" style="display:none">升级设置<span class="r-arrow"></span><span class="current-arrow"></span></li>
+        </ul>
+      </div><!--.tab-index-->
+      <div class="tab-con" id="checkUpdates" >
+        <div class="tab-panel" id="detectUpdates">
+          <p class="tab-title">当前版本：<span id="versionNow"></span></p>
+          <div class="update-state">
+            <div class="checking" id="checkIng" style="display:none"><span class="icon-loading2"></span><span>正在检查更新...</span></div>
+            <div class="check-result" id="checkResult" style="display:none">
+               <p class="notice" id="checkref"><span class="icon-right3"></span>您的系统已经是最新版！不需要升级！</p>
+               <div class="save-btn" id="resetCheck">
+                  <span>重新检测</span>
+               </div>
+            </div>
+            <div class="upgra-process" id="upgraProcess" style="display:none">
+               <p class="gray66" id="updatestate">升级中</p>
+               <div class="progress">
+                  <div class="val" style="width:20%" id="updateprogress"></div>
+               </div>
+               <p class="notice">为避免损坏路由器，升级过程中请不要中断连接，也不要断电</p>
+            </div>
+            <div class="current-ver" id="currentVer" style="display:none">
+              <p class="tp1">检测到有新版本</p>
+              <p class="ver-info"><span>版本:</span><span id="ver-now"></span><span id="update-size"></span></p>
+              <p class="tp1">更新内容：</p>
+              <ul id="updatereference">
+               <li></li>
+              </ul>
+              <div class="action-btn" id="atOnceUpate">
+                马上升级
+              </div>
+            </div>
+          </div><!--.update-state-->
+        </div><!--#detectUpdates-->
+        <div class="tab-panel" id="manualUpdate" style="display:none">
+          <div>
+            <p class="tab-title">手动上传升级包</p>
+            <p class="tab-tip2">当前版本：<span id="versionNow2"></span></p>
+			<form class="comn-form" name="uploadForm" id="uploadForm" method="post" enctype="multipart/form-data" >
+             <div class="field-items" id="fileselectpanel">
+				<div class="item file">
+                   <label>上传升级包：</label>
+                   <div class="item-in">
+                    <input type="file" name="image" id="image"/>
+                    <img id="tmpimg" dynsrc="" src="" style="display:none"/>					
+                    <div class="action-btn" id="uploadFormBtn">选择文件</div>	
+                    <div class="error-tip" style="display:none" id="errtip"></div>					
+                   </div> 
+                </div>
+             </div>
+			</form>
+            <div class="uploading" id="uploadingpanel" style="display:none">
+               <p class="up-info"><span class="tt">上传升级包：</span><span class="file-name" id="uploadfilename"></span><span class="up-delete" id="deleteuploadfile">删除</span></p>
+              <div class="up-progress">
+                 <p class="font12" id="uploadstatus">正在上传(验证)升级包...</p>
+                  <div class="progress">
+                      <div class="val" style="width:20%" id="uploadprogress"></div>
+                  </div>
+				  <p class="notice">为避免损坏路由器，升级过程中请不要中断连接，也不要断电</p>
+				  <div class="action-btn" id="upgradeFormBtn" style="display:none">马上升级</div> 
+              </div>
+            </div>
+          </div>
+        </div><!--#manualUpdate-->
+        <div class="tab-panel" id="updatesSet" style="display:none">
+            <p class="tab-title">系统升级设置</p>
+            <div class="upgrade-choice">
+                <div class="mode-choice">
+                    <span>自动升级</span><span class="select-open" id="upgradeChange"></span>
+                </div>
+                <p class="gray font12">开启自动升级后，在您设置的自动检测和升级的时间段内，自动下载并安装升级包</p>
+            </div>
+        </div><!--.updateSet-->
+      </div><!--.tab-con-->
+    </div>
+   </div><!--.router-con-->
+  </div>
+    <%include ("footer")%>
+    <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/nodeClick.js?lv=<%=luciver%>"></script>
+    <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/tab.js?lv=<%=luciver%>"></script>
+	<script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/popup.js?lv=<%=luciver%>"></script>
+   <script type="text/javascript" charset="utf-8" src="<%=media%>/js/system/checkUpgrade.js?lv=<%=luciver%>"></script>
+ </body>
+</html>

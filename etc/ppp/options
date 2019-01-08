@@ -1,0 +1,10 @@
+#debug
+logfile /tmp/log/pppoe.log
+noipdefault
+noaccomp
+nopcomp
+nocrtscts
+lock
+maxfail 0
+lcp-echo-failure 6
+lcp-echo-interval 10

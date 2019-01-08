@@ -1,0 +1,212 @@
+<%
+  local CommonFunc = require("luci.common.commonFunc")
+  local connectflag = "1"
+  local urlparam = ""
+  local urlparamwithwifi = ""
+  if not CommonFunc.getWanGatewayenable() then
+      connectflag = "0" 
+  end
+  urlparam,urlparamwithwifi = CommonFunc.createPCDNURLparam()
+  local checkupdate = CommonFunc.checkUpdatetime()
+  local routerpid = CommonFunc.getrouterpid()
+%>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>优酷土豆路由宝--首页</title>
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/reset.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/page/page_comn.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/index/index.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/icon/comn_icon.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/widget.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/popup.css?lv=<%=luciver%>">
+  <script type="text/javascript" charset="utf-8"  src="<%=media%>/js/lib/jquery.min.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/nodeClick.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/popup.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/index/index.js?lv=<%=luciver%>"></script>
+</head>
+<body>
+   <div class="header">
+     <div class="top-con clrfx">
+        <a href="#" class="logo">优酷土豆路由宝</a>
+        <div class="top-nav">
+          <ul class="clrfx">
+            <li class="current"><a href="#">首页</a></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin", "wifiset")%>'>路由设置</a><i class="border"></i></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin","devmanage")%>'>设备管理</a><i class="border"></i></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin", "systemstate")%>'>系统管理</a></li>
+         </ul>
+        </div>
+        <%include ("header")%>
+     </div> 
+   </div><!--.header-->
+   <div class="index-bg">
+    <div class="index-con">
+      <input id="dashboardurl" value='<%=luci.dispatcher.build_url("api","dashboard","getDashboardInfo")%>' style="display:none"/>
+      <input id="footerurl" value='<%=luci.dispatcher.build_url("api","dashboard","getFooterInfo")%>' style="display:none"/>
+      <input id="guestmodeurl" value='<%=luci.dispatcher.build_url("api","dashboard","setGuestMode")%>' style="display:none"/>
+      <input id="setwifiurl" value='<%=luci.dispatcher.build_url("api","dashboard","setWifiStatus")%>' style="display:none"/>
+      <input id="setledurl" value='<%=luci.dispatcher.build_url("api","dashboard","setLEDMode")%>' style="display:none"/>
+      <input id="getaccmodeurl" value='<%=luci.dispatcher.build_url("api", "dashboard", "getaccmode")%>' style="display:none"/>
+      <input id="binduserurl" value='<%=luci.dispatcher.build_url("admin", "dobindaccount")%>' style="display:none"/>
+      <input id="setaccuploadurl" value='<%=luci.dispatcher.build_url("api", "dashboard", "setaccuploadmode")%>' style="display:none"/>
+	  <input id="getdevrateurl" value='<%=luci.dispatcher.build_url("api", "dashboard", "getdevrate")%>' style="display:none"/>
+	  <input id="chkupgradeurl" value='<%=luci.dispatcher.build_url("api", "system", "chkupgrade")%>' style="display:none"/>
+	  <input id="startupgradeurl" value='<%=luci.dispatcher.build_url("api", "system", "doupgrade")%>' style="display:none"/>
+	  <input id="setnextupgradeurl" value='<%=luci.dispatcher.build_url("api", "system", "nextupgrade")%>' style="display:none"/>
+	  <input id="getupgradestatusurl" value='<%=luci.dispatcher.build_url("api", "system", "getupgradestatus")%>' style="display:none"/>
+	  <input id="connectflag" value='<%=connectflag%>' style="display:none"/>
+	  <input id="checkupdate" value='<%=checkupdate%>' style="display:none"/>
+	  <input id="routerpid" value='<%=routerpid%>' style="display:none"/>
+      <span class="tp-arrow"></span>
+      <div class="router-manage">
+        <a href='<%=luci.dispatcher.build_url("admin","devmanage")%>' class="blue-btn dev-set">设备管理</a>
+        <a href='<%=luci.dispatcher.build_url("admin", "outernetset")%>' class="blue-btn net-set" id="wanset" style="display:none">连网设置</a>
+        <a href="#" class="blue-btn test-speed" style="display:none" id="speedtest">测速</a>
+        <div class="dev-counts"><span class="num" id="dev_count"></span> 台设备已连接</div>
+        <div class="router-features" id="routerFeaturesPanel">
+         <div id="manageBtns">
+           <span class="btn wf-green" title="WiFi信号强度" id="wifiBtn" data-panel="wifiManagePanel"></span>
+           <span class="btn user-open" title="WiFi访客模式" id="visitorBtn" data-panel="visitorManagePanel"></span>
+           <span class="btn light-open" title="面板灯模式" id="lightBtn" data-panel="lightManagePanel"></span>
+         </div>
+          <div class="base-info">
+           <span class="icon-router"></span>
+           <p class="gray">已运行</p>
+           <p id="run_time"></p>
+          </div>
+        </div>
+        <div class="wifi-manage"  style="display:none" id="wifiManagePanel">
+          <span class="close-btn"  data-pos="36|36" data-panel="wifiManagePanel" data-resetBtn="wifiBtn"></span>
+          <span class="bg-round"></span>
+          <div class="mod-list">
+            <div class="start-select"><span>WiFi</span><i class="mode-btn select-open" id="WifiMode"></i></div>
+             <p class="strength-title">信号强度:</p>
+             <ul class="mod-items" id="wifiStrengthList">
+               <li>
+               <span class="icon-right" id="wifigreenIcon" style="display:none"></span><span class="mod-name" id="wifigreenMode">绿色模式</span><span class="signal-weak"></span>
+              </li>
+              <li>
+               <span class="icon-right" id="wifibaseIcon" style="display:none"></span><span class="mod-name" id="wifibaseMode">标准模式</span><span class="signal-default"></span>
+              </li>
+              <li>
+               <span class="icon-right" id="wifistrongIcon" style="display:none"></span><span class="mod-name" id="wifistrongMode">穿墙模式</span><span class="signal-strong"></span>
+              </li>
+             </ul>
+			  <p class="strength-tip" id="wifiStrengthdisable" style="display:none">WiFi已关闭，不能设置信号强度</p>
+          </div> 
+        </div><!--.wifi-manage-->
+        <div class="visitor-manage" style="display:none" id="visitorManagePanel">
+          <span class="close-btn" data-pos="103|7" data-panel="visitorManagePanel" data-resetBtn="visitorBtn"></span>
+          <div class="mod-list" id="guestenable">
+           <div class="start-select"><span>WiFi访客模式</span><i class="mode-btn select-open" id="guidMode"></i></div>
+           <p class="tmptip">开启访客模式后，为您的客人提供无密码的临时WiFi,不用时，请关闭</p>
+          </div>
+		  <div class="mod-list" id="guestdisable" style="display:none">
+           <div class="start-select"><span>WiFi访客模式</span><i class="mode-btn select-close" id="guidModedisable"></i></div>
+           <p class="tmptip">打开WiFi网络开关后，才能使用此功能</p>
+          </div>
+        </div><!--.visitor-mode-->
+        <div class="light-manage" style="display:none" id="lightManagePanel">
+          <span class="close-btn" data-pos="172|36" data-panel="lightManagePanel" data-resetBtn="lightBtn"></span>
+          <div class="set-light">
+           <p>面板灯</p>
+           <div class="set-btn" id="modeLtItems">
+             <span class="default-mode current" id="LEDBase">
+               <span class="icon-sun"></span>
+               <p>标准模式</p>
+             </span>
+             <span class="night-mode" id="LEDNight">
+               <span class="icon-moon"></span>
+               <p>夜间模式</p>
+             </span>
+           </div>
+           <div class="status" id="lightStatus"></div>
+          </div>
+        </div><!--.light-manage-->
+        <div class="disconn" style="display:none" id="netUnConnect">
+          <div class="tmptip">互联网断开</div>
+          <span class="icon-error"></span>
+        </div>
+        <div class="network-speed" id="netConnect">
+          <div class="down-speed" id="dspeed"><span class="icon-down"></span>0KB/s</div>
+          <div class="upload-speed" id="uspeed"><span class="icon-upload"></span>0KB/s</div>
+        </div>
+      </div>
+      <div class="router-app" id="binduserinfo"  style="display:none">
+        <div class="app-header clrfx">
+          <div class="h-left">
+           <p id="creditreference">路由宝正在赚取优金币</p>
+          </div>
+          <a href="http://pcdnapi.youku.com/pcdn/entry/index?from=yougold<%=urlparam%>" class="what-gold" target="_blank" title="了解优金币"></a>
+          <div class="h-right">
+          	<span class="app-mode">赚钱模式：</span>
+          	<div class="select2" id="p2pAppItems" style="margin-top:-1px;">
+               <span class="sel-val" id="p2puploadmode">获取中...<span class="icon-arrow1"></span></span>
+                <div class="options">
+                  <ul>
+                   <li data-val="1"><span class="text">保守</span><span>：上网体验优先</span><span class="icon-right"></span></li>
+                   <li data-val="2"><span class="text">平衡</span><span>：赚钱上网兼顾</span><span class="icon-right"></span></li>
+                   <li data-val="3"><span class="text">激进</span><span>：赚取收益优先</span><span class="icon-right"></span></li>
+                  </ul>
+                </div>
+            </div>
+          </div>
+        </div>
+        <div class="profit">
+           <div class="everyday-profit clrfx">
+           	 <div class="today-profit">
+               <p class="date">今日</p>
+               <p class="num" id="credits_today">0</p>
+             </div>
+             <div class="yesterday-profit">
+             	 <p class="date">昨日</p> 
+             	 <p class="num" id="credits_lastday">0</p>
+             </div>
+              <div class="total-profit">
+              	<p class="date">总计</p>
+              	 <p class="num" id="total_credits">0</p>
+              </div>
+           </div>
+        </div>
+        <div class="app-golds"></div>
+         <div class="remind" id="credits_est">今日预计还能再收获0个优金币</div>
+         <div class="manage-gold">
+          <p class="gold-use">优金币可以兑换优酷土豆会员、看付费电影，还能提现</p>
+          <p class="bind-user" id="bindUserName">已绑定帐号：<span>拉丁andy</span><span class="pos-move">以上优金币已放入该账户</span></p>
+          <a href="http://pcdnapi.youku.com/pcdn/entry/index?from=credits<%=urlparam%>" target="_blank" class="manage-btn" id="manageyougold"></a>
+          <a href="http://pcdnapi.youku.com/pcdn/entry/index?from=bind<%=urlparamwithwifi%>" class="get-btn" style="display:none;" target="_blank" id="getyougold"></a>
+         </div> 
+      </div><!--.router-app-->
+      <div class="p2p-disconn" id="binddisconnect" style="display:none;">
+        <p class="now-state" id="discon_ref">已断开外网，暂时无法继续赚优金币</p>
+        <p class="please-do" id="discon_detail">请通过连网设置连接外网</p>
+        <div class="golds"></div>
+        <p class="gold-can">优金币可以兑换优酷土豆会员，看付费电影，还能提现</p>
+      </div>
+    </div>  
+   </div><!--.index-bg-->
+   <%include ("footer")%>
+    <div class="popup update-pop" style="display:none;" id="updatePopUp">
+   	  <div class="title">
+   	  	<span class="name">提示</span><span class="pop-close" id="updateclose"></span>
+   	  </div>
+   	  <div class="pop-con">
+   	  	<div class="text-tip">
+   	  		 <p class="pl">检测到新版本</p>
+   	  		 <p class="new-version"><span>版本： </span><span id="ver-now"></span></p>
+			 <p class="new-version"><span>大小： </span><span id="update-size"></span></p>
+   	  		 <div class="update-items">
+   	  		    <p class="tt">更新内容：</p>
+   	  		    <ul id="updatereference">
+                 <li></li>
+                </ul>
+   	  		 </div>
+   	    </div>
+   	  </div>
+   	   <div class="pop-btns">
+        <span class="normal-btn ok" id="atOnceUpate">马上升级</span><span class="gray-btn2 cancel" id="noUpdate">暂不升级</span>
+       </div>
+   </div>
+</body>

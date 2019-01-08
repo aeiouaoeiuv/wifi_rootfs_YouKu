@@ -1,0 +1,14 @@
+@charset "utf-8";
+.tab{padding-top:20px;}
+.tab-index{width:190px;height:362px;border:solid 1px #e6e7e8;background-color:#fff;float:left;}
+.tab-index ul{margin-top:8px;}
+.tab-index li{height:43px;line-height:43px;padding-left:32px;font-size:14px;color:#333;position: relative;cursor:pointer;}
+.tab-index li:hover{background-color:#eeeeef;}
+.tab-index .current,.tab-index .current:hover{background-color:#d7dadd;}
+.tab-index .r-arrow{width:6px;height:10px;position: absolute;z-index:12;display:block;top:18px;right:10px;background:url(../../images/set/icon_arrow2.png) 0 0 no-repeat;}
+.tab-index .current-arrow{width:20px;height:43px;background:url(../../images/set/current_arrow.png) 0 0 no-repeat;display:block;position:absolute;top:0;right:-20px;display:none;}
+.tab-index .current .current-arrow{display:block;}
+.tab-con{float:left;margin-left:30px;font-size:14px;width:768px;min-height:400px;}
+.tab-title{font-size:16px;margin-top:20px;}
+.tab-tip2{color:#999;margin-top:4px;font-size:12px;}
+.note-state{font-size:12px;color:#999;display:inline-block;margin-left:46px;}

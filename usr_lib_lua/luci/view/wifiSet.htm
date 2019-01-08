@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>优酷路由设置</title>
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/reset.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/widget.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/page/page_comn.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/icon/comn_icon.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/set/router_set.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/form/form.css?lv=<%=luciver%>">
+  <script type="text/javascript" src="<%=media%>/js/lib/jquery.min.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" src="<%=media%>/js/plug/nodeClick.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" src="<%=media%>/js/set/wifiSet.js?lv=<%=luciver%>"></script>
+</head>
+<body>
+  <div class="header">
+     <div class="top-con clrfx">
+        <a href="#" class="logo">优酷路由器</a>
+        <div class="top-nav">
+          <ul class="clrfx">
+            <li><a href='<%=luci.dispatcher.build_url("admin", "index")%>'>首页</a></li>
+            <li class="current"><a href='<%=luci.dispatcher.build_url("admin", "wifiset")%>'>路由设置</a></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin","devmanage")%>'>设备管理</a><i class="border"></i></li>
+            <li><a href="#">系统信息</a></li>
+         </ul>
+        </div>
+        <div class="top-link">
+          <a href="#" class="user-name">sprtree2012@gmail.com</a>|<a href="#">下载手机app</a>|<a href="#">论坛</a>
+       </div>
+     </div> 
+   </div><!--.header--> 
+   <div class="bg-nav">
+    <div class="nav-con">
+    <input id="wifigeturl" value='<%=luci.dispatcher.build_url("api","network","getWifiInfo")%>' style="display:none">
+    <input id="wifiseturl" value='<%=luci.dispatcher.build_url("api","network","setWifi")%>' style="display:none">
+    <input id="footerurl" value='<%=luci.dispatcher.build_url("api","dashboard","getFooterInfo")%>' style="display:none">
+     <ul class="nav-lists clrfx">
+        <li class="current"><span class="icon wifi"></span><span>WiFi设置</span></li>
+        <li><a href='<%=luci.dispatcher.build_url("admin", "outernetset")%>'><span class="icon outer"></span ><span>外网设置</span></a></li>
+        <li><a href='<%=luci.dispatcher.build_url("admin", "innernetset")%>'><span class="icon inner"></span><span>内网设置</span></a></li>
+        <li><a href='<%=luci.dispatcher.build_url("admin", "seniorset")%>'><span class="icon adv"></span><span>高级设置</span></a></li>
+        <li><a href='<%=luci.dispatcher.build_url("admin", "configguid")%>'><span class="icon guid"></span><span>配置引导</span></a></li>
+     </ul>
+    </div>
+   </div><!--.set-nav-->
+   <div class="router-main">
+      <div class="router-con wifi-set">
+        <form class="set-form comn-form">
+          <div class="merge-mode" style="display:none">
+            <p class="mode-choice"><span class="checkbox" id="isMergeChbox"></span><span class="chbox-val">合并2.4G网络和5G网络</span></p>
+            <p class="gray">(合并后，2.4G网络和5G网络公用一个名称和密码)</p> 
+          </div>
+          <div class="set-panel">
+            <div class="mode-set"><span class="mode-name">2.4G网络</span><span class="select-open" id="net2d4G"></span></div>
+            <div class="pt-radius"></div>
+            <div class="pt-con">
+              <div class="field-items">
+                <div class="item">
+                <label for="routerName1">名称</label>
+                <input type="text" name="名称" name="name" value="Youku-test" class="comn-input" id="routerName1">
+                <span class="error-tip" id="routerName1Err"><span class="icon-warn"></span><span class="errtxt"></span></span>
+                </div>
+                <div class="item">
+                 <label for="routerPassword1">密码</label>
+                <input type="text" name="名称" name="password" value="123456" class="comn-input" id="routerPassword1">
+                <span class="error-tip" id="routerPassword1Err"><span class="icon-warn"></span><span class="errtxt"></span></span>
+                </div>
+                <div class="item">
+                 <label for="routerChanelItem">信道</label>
+                 <div class="select" id="routerChanelItem1">
+                   <div class="sel-val" id="routerChanel1">自动<i class="icon-arrow1"></i></div>
+                   <ul class="options">
+                    <li><span class="text">自动</span><span class="icon-right"></span></li>
+                    <li><span class="text">1</span><span class="icon-right"></span></li>
+                    <li><span class="text">2</span><span class="icon-right"></span></li>
+                    <li><span class="text">3</span><span class="icon-right"></span></li>
+                    <li><span class="text">4</span><span class="icon-right"></span></li>
+                    <li><span class="text">5</span><span class="icon-right"></span></li>
+                    <li><span class="text">6</span><span class="icon-right"></span></li>
+                    <li><span class="text">7</span><span class="icon-right"></span></li>
+                    <li><span class="text">8</span><span class="icon-right"></span></li>
+                    <li><span class="text">9</span><span class="icon-right"></span></li>
+                    <li><span class="text">10</span><span class="icon-right"></span></li>
+                    <li><span class="text">11</span><span class="icon-right"></span></li>
+                    <li><span class="text">12</span><span class="icon-right"></span></li>
+                    <li><span class="text">13</span><span class="icon-right"></span></li>
+                   </ul>
+                 </div>
+                </div>
+                <p class="mode-choice"><span class="checkbox" id="hideNetForFind1"></span><span class="chbox-val">隐藏本网络不被发现</span></p>
+              </div><!--.field-items-->
+            </div>
+            <div class="pb-radius"></div>
+          </div>
+            <div class="set-panel" style="display:none">
+            <div class="mode-set"><span class="mode-name">5G网络</span><span class="select-close" id="netTo5G" style="display:none"></span></div>
+            <div class="pt-radius"></div>
+            <div class="pt-con">
+              <div class="field-items">
+                <div class="item">
+                <label for="routerName2">名称</label>
+                <input type="text" name="名称" name="name" value="Youku-test" class="comn-input" id="routerName2">
+                <span class="error-tip" id="routerName2Err"><span class="icon-warn"></span><span class="errtxt"></span></span>
+                </div>
+                <div class="item">
+                 <label for="routerPassword2">密码</label>
+                <input type="text" name="名称" name="password" value="123456" class="comn-input" id="routerPassword2">
+                 <span class="error-tip" id="routerPassword2Err"><span class="icon-warn"></span><span class="errtxt"></span></span>
+                </div>
+                 <div class="item">
+                 <label>信道</label>
+                 <div class="select" id="routerChanelItem2">
+                   <div class="sel-val">自动<i class="icon-arrow1"></i></div>
+                   <ul class="options" style="display:none">
+                    <li><span class="text">自动</span><span class="icon-right"></span></li>
+                    <li><span class="text">1</span><span class="icon-right"></span></li>
+                    <li><span class="text">2</span><span class="icon-right"></span></li>
+                    <li><span class="text">3</span><span class="icon-right"></span></li>
+                    <li><span class="text">4</span><span class="icon-right"></span></li>
+                    <li><span class="text">5</span><span class="icon-right"></span></li>
+                    <li><span class="text">6</span><span class="icon-right"></span></li>
+                    <li><span class="text">7</span><span class="icon-right"></span></li>
+                    <li><span class="text">8</span><span class="icon-right"></span></li>
+                    <li><span class="text">9</span><span class="icon-right"></span></li>
+                    <li><span class="text">10</span><span class="icon-right"></span></li>
+                    <li><span class="text">11</span><span class="icon-right"></span></li>
+                    <li><span class="text">12</span><span class="icon-right"></span></li>
+                    <li><span class="text">13</span><span class="icon-right"></span></li>
+                   </ul>
+                 </div>
+                </div>
+                <p class="mode-choice"><span class="checkbox" id="hideNetForFind2"></span><span class="chbox-val">隐藏本网络不被发现</span></p>
+              </div><!--.field-items-->
+            </div>
+            <div class="pb-radius"></div>
+          </div>
+          <div class="visitor-set clrfx">
+            <div class="avatar"></div>
+            <div class="field-vi">
+              <div class="mode-set"><span class="mode-name">WiFi访客模式</span><span class="select-open" id="visitorChoice"></span></div>
+              <p class="gray">开启后，可以为客人提供专属Wi-Fi上网，不必透露Wi-Fi密码</p>
+            </div>
+          </div>
+          <div class="save-btn" id="saveBtnAboutWifi">
+           <span class="icon-loading"></span><span>保存</span>
+          </div>
+        </form><!--.set-form-->
+      </div><!--.router-con-->
+   </div>
+   <div class="footer">
+    <p>
+    <span>系统版本：</span><span id="sysversion">V1.0.00920 </span><span>稳定版</span><span >MAC地址：</span><span id="MacAddr">8C:BE:BE:26:8E:5F</span><span>公网IP地址：</span><span id="wanIP">123.124.125.122</span>
+     </p>
+    <p>
+    <span>© 2014 优酷路由器</span><span>QQ群：</span><span id="routerQQ">457865478</span><span>微信公众号： </span><span id="routerWX">youkurouter</span><span>服务热线：</span><span id="routerHotline">400 500 1234</span>
+     </p>
+   </div>
+</body>
+</html>

@@ -1,0 +1,28 @@
+@charset "utf-8";
+body, div, dl, dt, dd, ul, ol, li, h1, h2, h3, h4, h5, h6, pre, form, fieldset, input, button, select, option, textarea, p, blockquote, th, td,a{
+padding: 0;margin: 0;}
+body{font: 12px/20px "Microsoft YaHei","微软雅黑",arial, helvetica, verdana, tahoma, sans-serif;}
+a{text-decoration: none;}
+a:visited{color:#666;}
+a:hover{color:#00a7e4;}
+li{list-style:none;}
+.clrfx{clear:both;zoom:1;}
+.clrfx:after{content: "";display:block;height: 0; clear: both; visibility: hidden;}
+.gray{color:#999;}
+.num{font-family:verdana;}
+input{outline:none;}
+input::-ms-clear{display:none;}
+.fl{float:left;}
+.fr{float:right;}
+.relative{position:relative;}
+.gray66{color:#666;}
+.gray333{color:#333;}
+.hide{display:none;}
+.font12{font-size:12px;}
+.font14{font-size:14px;}
+.center{text-align:center;}
+.router-main{background:#f7f8f8;border-bottom:solid 1px #f1f2f2;}
+.router-con{width:990px;margin:0 auto;}
+
+
+

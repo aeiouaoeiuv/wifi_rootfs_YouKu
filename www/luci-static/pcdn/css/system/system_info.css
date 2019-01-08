@@ -1,0 +1,112 @@
+@charset "utf-8";
+.nav-lists .icon{background:url(../../images/system/system_nav.png) 0 0 no-repeat;display:inline-block;}
+.nav-lists .meter{width:21px;height:21px;}
+.nav-lists .key{width:21px;height:12px;background-position:-22px -5px;margin-top:4px;}
+.nav-lists .lock{width:19px;height:20px;background-position:-44px -1px;margin-top:4px;}
+.nav-lists .conv{width:21px;height:20px;background-position:-64px -1px;margin-top:4px;}
+.nav-lists .power{width:19px;height:18px;background-position:-85px -1px;margin-top:2px;}
+.nav-lists .fac-default{width:18px;height:18px;background-position:-107px -2px;margin-top:2px;}
+.head-title{margin-left:106px;}
+.head-title .ht1{font-size:16px;color:#333;}
+.head-title .ht2{color:#999;margin-top:4px;}
+.change-pwd{margin-left:226px;padding:50px 0 64px 0;}
+.change-pwd .item{position:relative;}
+.change-pwd .pw-holder{left:114px;}
+.change-pwd label{width:90px;}
+.change-pwd .save-btn{margin-left:106px;}
+.fac-reset .router-con{height:478px;overflow:hidden;}
+.fac-reset .txt{text-align:center;color:#666;}
+.check-update{padding-bottom:98px;}
+.checking{width:177px;height:66px;background-color:#fff;margin:98px auto 0 auto;line-height:66px;border:solid 1px #d7dadd;color:#666;font-size:14px;-webkit-birder-radius:4px;-moz-border-radius:4px;-ms-border-radius:4px;border-radius:4px;}
+.checking span{vertical-align:middle;display:inline-block;}
+.icon-loading2{width:32px;height:32px;background:url(../../images/system/grayLoading.gif) 0 0 no-repeat;display:inline-block;vertical-align:middle;margin:0 15px 0 18px;}
+.detect-up{position:relative;}
+.check-result{margin:92px 0 0 238px;}
+.check-result .tip{color:#333;}
+.check-result .icon-right3{margin-right:10px;}
+.check-result .save-btn{margin:22px 0 0 35px;}
+.current-ver{color:#666;margin:20px 0 0 50px;}
+.current-ver .tp1{color:#333;margin-top:14px;font-weight:bold;}
+.ver-info span{display:inline-block;margin-right:18px;}
+.current-ver .save-btn{margin-top:50px;}
+.current-ver .action-btn {margin-left: 150px;margin-top: 50px;}
+.field-items .long{width:auto;}
+.check-update .comn-form{margin-left:74px;}
+.upgra-process{width:494px;margin:102px 0 0 118px;}
+.upgra-process p{text-align:center;}
+.upgra-process .notice{color:#f25d50;}
+.progress{width:494px;height:8px;background-color:#d8f1ff;-webkit-border-radius:4px;-moz-border-radius:4px;-ms-border-radius:4px;border-radius:4px;overflow:hidden;}
+.progress .val{height:8px;background-color:#00a7e4;-webkit-border-radius:4px;-moz-border-radius:4px;-ms-border-radius:4px;border-radius:4px;}
+.uploading .notice{color: #f25d50;margin: 10px 0 20px 0;}
+.field-items .file{margin-top:64px;}
+.field-items .file .error-tip{margin-left:0;}
+.upgra-process .progress{margin:18px 0 24px 0;}
+.system-info{padding:46px 0 6px 0;}
+.system-info .tb-head{font-size:14px;margin:0 12px 30px 32px;color:#444140;}
+.connected{margin-left: 20px;vertical-align:middle;}
+.connected .num{font-size:18px;}
+.runtime span{display:inline-block;vertical-align:middle;}
+.runtime .day,.runtime .hour,.runtime .minute,.runtime .second{
+  width:45px;height:31px;
+  text-align:center;
+  line-height:31px;
+  font-size:24px;
+}
+.runtime .spt{margin-right:16px;}
+.runtime .ft{margin:0 8px 0 2px;font-size:24px;line-height:31px;}
+.runtime .colon{font-size:24px;margin:0 2px;line-height:31px;}
+.runtime .longer{width:60px;height:32px;}
+.round-panel{margin-bottom:50px;position:relative;}
+.round-panel .pt-con{padding:22px 0 10px 0;overflow:hidden;}
+.base-info{margin-left:406px;font-size:14px;}
+.info-item p{margin-top:4px;}
+.info-item .label{width:100px;color:#666;display:inline-block;margin-right:14px;text-align:right;}
+.base-info .space{margin:28px 0;}
+.round-panel .p-title{font-size:16px;padding:4px 6px;color:#333;position:absolute;background-color:#f6f7f7;z-index:20;left:60px;top:-13px;}
+.loss{font-size:16px;color:#333;margin-bottom:2px;}
+.bind-account{padding:76px 0 120px 0;}
+.bind-account .error-tip{float:none;height:20px;margin-left:90px; visibility:hidden;width:132px;}
+.bind-account .save-btn{margin-top:8px;}
+.bind-account .load-btn{margin:10px 0 0 90px;display:block;}
+.pay-img{width:227px;height:191px;background:url(../../images/system/piggyGraphic.png) 0 0 no-repeat;margin-top:46px;}
+.bind-tip{margin-left:88px;width:304px;_display:inline;}
+.account-in{margin-left:30px;}
+.account-in .tm{color:#666;vertical-align:middle;margin:10px 0 0 10px;display:inline-block;}
+.account-in .tm:hover{color:#00a7e4;}
+.remove-bind{width:488px;height:276px;border:solid 1px #d7dadd;background-color:#fff;margin-left:64px;-webkit-border-radius:8px;-moz-border-radius:8px;-ms-border-radius:8px;border-radius:8px;}
+.account-info{width:448px;margin:36px auto 0 auto;border-bottom:solid 1px #d7dadd;padding-bottom:40px;}
+.account-info .tt{font-size:14px;color:#666;}
+.acc-name{text-align:center;font-size:16px;margin-top:22px;}
+.acc-name .profit{color:#00a7e4;font-size:12px;margin-left:12px;}
+.remove-bind .action-btn{margin:42px auto 0 auto;display:block;}
+.restart{height:480px;overflow:hidden;}
+.msg-con{text-align:center;margin-top:160px;}
+.msg-con .txt{color:#666;}
+.msg-con .action-btn{margin:38px auto 0 auto;}
+.current-user{color:#666;margin:14px 0 8px 0;}
+.pop-unbind-account input{width:238px;height:42px;line-height:42px\9;}
+.forget-pass a{color:#666;margin-left:26px;}
+.forget-pass a:hover{color:#00a7e4;}
+.pop-unbind .pop-btns{right:230px;bottom:28px;}
+.uploading{margin: 100px 0 0 74px;}
+.up-info span{font-size:12px;display:inline-block;}
+.up-info .tt{color:#666;margin-right:4px;}
+.up-info .file-name{font-size:14px;color:#333;}
+.up-info .up-delete{color:#00a7e4;margin-left:6px;cursor:pointer;}
+.up-progress{color:#666;margin:20px 0 0 74px;}
+.up-progress .progress{margin-top:10px;}
+.uploading .error-tip{margin-left:0;}
+.upgrade-choice{margin: 38px 0 0 152px;}
+.upgrade-choice .mode-choice {margin-bottom: 8px;}
+.mode-choice .select-open, .mode-choice .select-close{margin-left: 16px;}
+.pop-unbind-account{width:498px;height:410px;top:50%;left:50%;margin-left: -249px; margin-top: -205px;}
+.pop-unbind-account .pop-con .con{width:360px;}
+.forget-pass{margin-top:10px;}
+.popu-info .pop-btns{right:228px;bottom:26px;}
+.pop-unbind-account .error-tip{margin-left:0;}
+.change-pwd .load-btn{margin:46px 0 0 106px;}
+.account-in .explain{margin-left: 90px;}
+.remove-bind .load-btn{margin: 42px auto 0 auto;display: block;}
+.pwd-set-complete{margin:-20px 0 20px 0;}
+.pwd-set-complete p{line-height:28px;}
+.pwd-set-complete .info{font-size:16px;}

@@ -1,0 +1,46 @@
+@charset "utf-8";
+/*form items*/
+.comn-form .focus{border:solid 1px #00a7e4;}
+.comn-form .error{border:solid 1px #f25d50;}
+.field-con{height:42px;border:solid 1px #d0d0d0;background-color:#fff;margin-top:6px;position:relative;}
+.field-con .shadow{background-color:#eee;height:1px;border-top:solid 1px #e8e8e8;border-bottom:solid 1px #f9f9f9;overflow:hidden;}
+.comn-input{border:solid 1px #d0d0d0;padding:0 8px;-moz-box-shadow: 0 0 5px red inset;-webkit-box-shadow: 0 2px 0 #e8e8e8 inset;-ms-box-shadow:0 2px #e8e8e8;border-shadow:0 2px #e8e8e8;}
+.gray33{color:#b3b3b3;}
+.field-items{color:#666;}
+.field-items .select{float:left;}
+.field-items .item{margin-top:20px;clear:both;*zoom:1;}
+.field-items .item:after{content: "";display:block;height: 0; clear: both; visibility: hidden;}
+.field-items label{width:74px;line-height:44px;margin-right:16px;text-align:right;float:left;font-size:12px;}
+.field-items .item-in{float:left;width:324px;}
+.field-items input{width:306px;height:40px;line-height:40px\9;*float:left;*/}
+.field-items .sel-val{float:left;}
+.field-items .item .select-open, .field-items .item .select-close {margin-top: 4px;}
+.save-btn{width:140px;height:50px;text-align:center;background-color:#00a7e4;line-height:50px;font-size:16px;color:#fff;display:block;-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;border-radius:2px;cursor:pointer;}
+.save-btn:hover{background-color:#0196d2;}
+.disable-btn{width:140px;height:50px;text-align:center;background-color:#8c8c8c;line-height:50px;font-size:16px;color:#fff;display:block;-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;border-radius:2px;cursor:pointer;}
+.error-tip{font-size:12px;color:#f25d50;background:#fcebe9 url(../../images/widget/warn.png) 14px center no-repeat;float:left;border:solid 1px #f25d50;padding:3px 10px 3px 36px;margin:5px 0 0 8px;}
+.error-tip span{margin-right:5px;vertical-align:middle;_display:inline-block;}
+.long-tip{width:258px;height:auto;position: relative;margin-top:0;}
+.long-tip .multi{line-height:20px;display:block;margin-left:25px;}
+.long-tip .icon-warn{position:absolute;top:3px;left:10px;}
+.save-tip{width:88px;height:40px;background-color:#686969;padding:0 20px;line-height:40px;color:#fff;display:none;}
+.field-items .short{width:178px;}
+.field-items .short1{width:46px;}
+.fd-tip{color:#b3b3b3;}
+.field-items .item .tip{color:#bfbfbf;font-size:12px;margin-top:6px;}
+.field-items .rv-margin{margin-top:0;}
+.comn-form .save-btn{margin:46px 0 0 90px;}
+.need-tip{display:inline-block;line-height:42px;color:#666;margin-left:10px;}
+.no-label .error-tip{margin:10px 0;float:left;height:20px; visibility: hidden;}
+.item .mode-choice{padding-top:12px;*zoom:1;}
+.item .mode-choice span{vertical-align:middle;display:inline-block;}
+.item .mode-choice .checkbox,.item .mode-choice .checkboxed{margin-right:5px; visibility: visible;}
+.tip{width:128px;height:40px;line-height:40px;font-size:14px;color:#fff;text-align:center;background-color:#707070;-webkit-border-radius:4px;-moz-border-radius:4px;-ms-border-radius:4px;border-radius:4px;}
+.tip span{*vertical-align:middle;display:inline-block;}
+.tip .right,.tip .warn{background:url(../../images/widget/tip_icon.png) 0 0 no-repeat; display:inline-block;margin-right:7px;_margin-top:4px;}
+.tip .right{width:12px;height:9px;background-position:-2px -3px;}
+.tip .warn{width:16px;height:13px;background-position:0 -18px;}
+.pw-holder{position: absolute;top: 12px;left: 10px;color: #bfbfbf;z-index:14;}
+.time-range{margin-top:16px;float:left;}
+.time-input{text-align:center;padding:0;float:none;width:38px;height:28px;line-height:28px\9;}
+

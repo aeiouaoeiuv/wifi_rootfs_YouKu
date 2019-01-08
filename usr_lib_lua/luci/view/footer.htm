@@ -1,0 +1,35 @@
+<div class="footer">
+    <p>
+    <span>系统版本：</span><span id="sysversion" class="np"></span><span>MAC地址：</span><span id="MacAddr" class="np"></span><span>WAN IP地址：</span><span id="wanIP" class="np"></span>
+     </p>
+    <p>
+    <span class="np">© 2015 优酷土豆路由宝</span><span>微信公众号：</span><span id="routerQQ" class="np" style="display:none"></span><span id="routerWX" class="np"></span><span>服务热线：</span><span id="routerHotline" class="np"></span>
+     </p>
+</div>
+<script>
+  //footer
+  $.getJSON("<%=luci.dispatcher.build_url("api","dashboard","getFooterInfo")%>", function(data){
+        $("#sysversion").html(data['sysversion']);
+        $("#MacAddr").html(data['MacAddr']);
+        $("#wanIP").html(data['wanIP']);
+        $("#routerQQ").html(data['routerQQ']);
+        $("#routerWX").html(data['routerWX']);
+        $("#routerHotline").html(data['routerHotline']);
+		
+  });
+
+  $.getJSON("<%=luci.dispatcher.build_url("api","dashboard","getUserInfo")%>", function(data){
+		var binduser = data['binduser'];
+		$("#youkuuser").html(binduser);
+		if(data['bindflag'] == "0"){
+		    $("#rebinduser").hide();
+		}else{
+		    $("#rebinduser").show();
+		}
+		$("#youkubinduserurl").attr("href", data['youkurebinduserurl']);	
+        $("#appurl").attr("href", data['appurl']);
+        $("#bbsurl").attr("href", data['bbsurl']);
+		$("#genurl").attr("href", data['genurl']);	
+		$("#youkuuserurl").attr("href", data['youkuuserurl']);	
+  });
+</script>

@@ -1,0 +1,14 @@
+config samba
+	option 'name' 'youku-samba'
+	option 'workgroup' 'WORKGROUP'
+	option 'description' 'samba server of youku router'
+	option 'homes' '1'
+
+config sambashare
+    option name 'home'
+    option path '/tmp/youku/mnt/usb0'
+    option read_only 'no'
+    option guest_ok 'yes'
+    option users 'root,nobody'
+    option create_mask '0755'
+    option dir_mask '0755'

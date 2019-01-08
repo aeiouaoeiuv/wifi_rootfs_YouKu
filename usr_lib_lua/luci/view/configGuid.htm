@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>优酷土豆路由宝--路由设置</title>
+   <link rel="stylesheet" type="text/css" href="<%=media%>/css/reset.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/widget.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/page/page_comn.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/set/router_set.css?lv=<%=luciver%>">
+  <script type="text/javascript" src="<%=media%>/js/lib/jquery.min.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" src="<%=media%>/js/set/configGuid.js?lv=<%=luciver%>"></script>
+</head>
+<body>
+  <div class="header">
+     <div class="top-con clrfx">
+        <a href="#" class="logo">优酷土豆路由宝</a>
+        <div class="top-nav">
+          <ul class="clrfx">
+            <li><a href='<%=luci.dispatcher.build_url("admin", "index")%>'>首页</a></li>
+            <li class="current"><a href="<%=luci.dispatcher.build_url("admin", "wifiset")%>">路由设置</a></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin","devmanage")%>'>设备管理</a><i class="border"></i></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin", "systemstate")%>'>系统管理</a></li>
+         </ul>
+        </div>
+        <%include ("header")%>
+     </div> 
+   </div><!--.header-->
+   <div class="bg-nav">
+     <div class="nav-con">
+     <ul class="nav-lists clrfx">
+        <li><a href='<%=luci.dispatcher.build_url("admin", "wifiset")%>'><span class="icon wifi"></span><span>WiFi设置</span></a></li>
+        <li><a href='<%=luci.dispatcher.build_url("admin", "outernetset")%>'><span class="icon outer"></span ><span>外网设置</span></a></li>
+        <li><a href='<%=luci.dispatcher.build_url("admin", "innernetset")%>'><span class="icon inner"></span><span>内网设置</span></a></li>
+        <li ><a href='<%=luci.dispatcher.build_url("admin", "seniorset")%>'><span class="icon adv"></span><span>高级设置</span></a></li>
+        <li class="current"><span class="icon guid"></span><span>配置引导</span></li>
+     </ul>
+    </div>
+   </div><!--.bg-nav-->
+   <div class="router-main">
+   	 <input id="footerurl" value='<%=luci.dispatcher.build_url("api","dashboard","getFooterInfo")%>' style="display:none"/>
+   	 <input id="guidagreeurl" value='<%=luci.dispatcher.build_url("admin","doguideagree")%>' style="display:none"/>
+     <div class="config-guid">
+       <p class="title">快速对路由宝进行配置</p>
+       <p class="tip">只需两步，就能完成配置，设置路由宝就是这么简单</p>
+       <div class="config-step"></div>
+       <a href='<%=luci.dispatcher.build_url("admin","doguideagree")%>'  class="blue-btn start-config" target="_blank">立即快速配置</a>
+     </div>
+   </div> 
+  <%include ("footer")%>
+</body>

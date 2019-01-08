@@ -1,0 +1,29 @@
+@charset "utf-8";
+.guide-main{height: 514px;background: url(../../images/guide/guideStartbg.png) top center no-repeat;position:relative;padding-top:120px;}
+.login-con{width:340px; margin:0 auto; padding-top:70px;height:488px;}
+.logo{width:96px; height:94px; background: url(../../images/login/logo.png) 0 0 no-repeat; margin: 0 auto;}
+.wel-txt {width: 264px;height: 23px; background: url(../../images/login/font_pic.png) 0 0 no-repeat;margin:23px auto 0;}
+.quick-config{height:302px;background-color:#fff;margin-top:62px;overflow:hidden;}
+.quick-config .action-btn,.quick-config .disable-btn{margin:48px auto 18px auto;display:block;}
+.is-post-agree{width:270px;margin:0 auto;}
+.is-post-agree span{vertical-align:middle;}
+.is-post-agree .checkbox,.is-post-agree .checkboxed{margin-right:8px;}
+.is-post-agree .blue{margin-left:4px;color:#00a7e4;cursor:pointer;position: relative;}
+.is-post-agree .a-close,.is-post-agree .a-open{width:13px;height:13px;background:url(../../images/guide/agree_arrow.png) 0 0 no-repeat;display: block;position: absolute;top:2px;right:-15px;z-index:30;}
+.is-post-agree .a-open{background-position:-13px 0;}
+.page-footer{text-align:center;color:#666;margin-top:124px;}
+.page-footer .np{margin-right:14px;}
+.agreement{width:890px;height:434px;background:#f3f3f3;position:absolute;top:0;left:50%;margin-left:-446px;z-index:140;border:solid 1px #d9d9d9;border-top:none;display:none;}
+.agreement .head{height:56px;border-bottom:solid 1px #bfbfbf;line-height:56px;position:relative;}
+.agreement .title{font-size:16px;margin-left:32px;color:#000;}
+.agreement .close{width:32px;height:32px;background:url(../../images/widget/popu_close.png) 0 0 no-repeat;display:block;position: absolute;top:12px;right:10px;z-index:15;cursor:pointer;}
+.agreement .close:hover{background-position:-32px 0;}
+.agreement .container{height:376px;overflow:auto;}
+.agreement .con{color:#666;padding:16px 50px 16px 38px;}
+.agreement .t-item,.agreement .t-item2{margin-bottom:16px;}
+.agreement .t-item p{text-indent:2em;line-height:24px;}
+.agreement .t-item2{line-height:24px;}
+.agreement .lists li{list-style:disc;margin-left:20px;}
+
+
+

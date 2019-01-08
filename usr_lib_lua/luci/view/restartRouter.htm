@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>优酷土豆路由宝--系统信息</title>
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/reset.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/page/page_comn.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/widget.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/popup.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/system/system_info.css?lv=<%=luciver%>">
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/lib/jquery.min.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/popup.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8"  src="<%=media%>/js/system/restart.js?lv=<%=luciver%>"></script>
+</head>
+<body>
+  <div class="header">
+     <div class="top-con clrfx">
+        <a href="#" class="logo">优酷土豆路由宝</a>
+        <div class="top-nav">
+          <ul class="clrfx">
+            <li><a href='<%=luci.dispatcher.build_url("admin", "index")%>'>首页</a><i class="border"></i></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin", "wifiset")%>'>路由设置</a><i class="border"></i></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin","devmanage")%>'>设备管理</a></li>
+            <li class="current"><a href='<%=luci.dispatcher.build_url("admin", "systemstate")%>'>系统管理</a></li>
+         </ul>
+        </div>
+        <%include ("header")%>
+     </div> 
+   </div><!--.header-->
+   <div class="bg-nav">
+     <div class="nav-con">
+      <ul class="nav-lists clrfx">
+        <li><a href='<%=luci.dispatcher.build_url("admin", "checkupdate")%>'><span class="icon conv"></span><span>系统升级</span></a></li>
+        <li><a href='<%=luci.dispatcher.build_url("admin", "managepassword")%>'><span class="icon key"></span ><span>管理密码</span></a></li>
+        <li class="current"><span class="icon power"></span><span>重启路由</span></li>
+        <li class="long"><a href='<%=luci.dispatcher.build_url("admin", "resetfactory")%>'><span class="icon fac-default"></span><span>恢复出厂设置</span></a></li>
+      </ul>
+     </div>
+   </div><!--.bg-nav-->
+   <div class="router-main">
+    <input id="footerurl" value='<%=luci.dispatcher.build_url("api","dashboard","getFooterInfo")%>' style="display:none"/>
+    <input id="restarturl" value='<%=luci.dispatcher.build_url("api","system","restart")%>' style="display:none"/>
+    <div class="router-con restart">
+     <div class="msg-con">
+       <p class="txt">重启路由器大概需要180秒，重启过程中，会断开网络连接，稍后将会自动连接互联网</p>
+       <div class="action-btn" id="restartRouterBtn">重启路由器</div>
+     </div>
+    </div>
+  </div>
+   <%include ("footer")%>
+</body>
+</html>

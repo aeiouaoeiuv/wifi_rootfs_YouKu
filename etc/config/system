@@ -1,0 +1,14 @@
+config system
+	option hostname	Youku-router
+	option timezone Asia/Shanghai
+	option timezone CST-8
+
+config timeserver ntp
+    list server ntp.sjtu.edu.cn
+    list server 1.cn.pool.ntp.org
+    list server cn.pool.ntp.org
+    list server tw.pool.ntp.org
+    list server 1.tw.pool.ntp.org
+    list server s1a.time.edu.cn
+	list server	1.openwrt.pool.ntp.org
+	option enable_server 0

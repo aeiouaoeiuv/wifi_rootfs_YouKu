@@ -1,0 +1,164 @@
+<%
+  local CommonFunc = require("luci.common.commonFunc")
+  local remote_addr = luci.http.getenv("REMOTE_ADDR")
+  local mac = luci.sys.net.ip4mac(remote_addr)
+  local wifi_map = CommonFunc.getWifiInfo()
+  local lanType = "line"
+  if wifi_map[mac] ~= nil then
+    lanType = "wifi"
+  end
+%>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>优酷土豆路由宝--路由设置</title>
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/reset.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/widget.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/page/page_comn.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/popup.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/icon/comn_icon.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/form/form.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/set/router_set.css?lv=<%=luciver%>">
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/lib/jquery.min.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/nodeClick.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/validate.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/popup.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/set/wifiSet.js?lv=<%=luciver%>"></script>
+</head>
+<body>
+  <div class="header">
+     <div class="top-con clrfx">
+        <a href="#" class="logo">优酷土豆路由宝</a>
+        <div class="top-nav">
+          <ul class="clrfx">
+            <li><a href='<%=luci.dispatcher.build_url("admin", "index")%>'>首页</a></li>
+            <li class="current"><a href='<%=luci.dispatcher.build_url("admin", "wifiset")%>'>路由设置</a></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin","devmanage")%>'>设备管理</a><i class="border"></i></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin", "systemstate")%>'>系统管理</a></li>
+         </ul>
+        </div>
+        <%include ("header")%>
+     </div> 
+   </div><!--.header--> 
+   <div class="bg-nav">
+    <div class="nav-con">
+    <input id="wifigeturl" value='<%=luci.dispatcher.build_url("api","network","getWifiInfo")%>' style="display:none"/>
+    <input id="wifiseturl" value='<%=luci.dispatcher.build_url("api","network","setWifi")%>' style="display:none"/>
+    <input id="guestseturl" value='<%=luci.dispatcher.build_url("api","network","setGuestMode")%>' style="display:none"/>
+    <input id="footerurl" value='<%=luci.dispatcher.build_url("api","dashboard","getFooterInfo")%>' style="display:none"/>
+	<input id="connectiontype" value='<%=lanType%>' style="display:none"/>
+     <ul class="nav-lists clrfx">
+        <li class="current"><span class="icon wifi"></span><span>WiFi设置</span></li>
+        <li><a href='<%=luci.dispatcher.build_url("admin", "outernetset")%>'><span class="icon outer"></span ><span>外网设置</span></a></li>
+        <li><a href='<%=luci.dispatcher.build_url("admin", "seniorset")%>'><span class="icon adv"></span><span>高级设置</span></a></li>
+     </ul>
+    </div>
+   </div><!--.bg-nav-->
+   <div class="router-main">
+      <div class="router-con wifi-set">
+        <form class="comn-form wifi-mode" id="GuestModeForm">
+         <div class="panel">
+            <div class="pt-radius"></div>
+            <div class="pt-con">
+             <div class="mode-con">
+               <div class="wifi-strong clrfx">
+                 <div class="wifi2 fl"></div>
+                 <div class="ws-info fl">
+                   <span class="tt">WiFi信号强度</span>
+                   <span class="select-strength" id="wifiStrengthList">
+                     <span class="sel-val"><span id="wifiStrengthtext">标准模式</span><span class="signal-weak" id="strengthicon"></span><span class="icon-arrow1"></span></span>
+                     <div class="options">
+                        <ul>
+                         <li data-val=0>
+                          <span class="icon-right"></span><span class="text"><span>绿色模式</span><span class="signal-weak"></span></span>
+                         </li>
+                         <li data-val=1>
+                          <span class="icon-right"></span><span class="text"><span>标准模式</span><span class="signal-default"></span></span>
+                        </li>
+                         <li data-val=2>
+                          <span class="icon-right"></span><span class="text"><span>穿墙模式</span><span class="signal-strong"></span></span>
+                         </li>
+                        </ul>
+                     </div>
+                  </span>
+				  <span class="gray" id="wifiStrengthdisable" style="display:none">WiFi已关闭，不能设置信号强度</span>
+                 </div>
+               </div>
+               <div class="visitor-set clrfx">
+                 <div class="avatar"></div>
+                 <div class="field-vi fl" id="guestenable">
+                  <div class="mode-set"><span class="tt">WiFi访客模式</span><span class="select-open" id="visitorChoice"></span></div>
+                  <p class="gray" id="guestreference">开启后，可以为客人提供专属WiFi上网，不必透露WiFi密码</p>
+                 </div>
+				 <div class="field-vi fl" id="guestdisable" style="display:none">
+                  <div class="mode-set"><span class="tt">WiFi访客模式</span><span class="select-close" id="visitordisable"></span></div>
+                  <p class="gray">打开WiFi网络开关后，才能使用此功能</p>
+                 </div>
+               </div> 
+                <div class="save-btn" id="saveBtnAboutGuest">保存</div>
+				<div class="disable-btn" id="saveBtnDisable" style="display:none">保存</div>
+             </div><!--.wifi-mode--> 
+            </div>
+            <div class="pb-radius"></div>
+         </div>
+        </form>
+        <form class="comn-form wifi-mode2" id="wifiModeSetForm">
+          <!--<div class="merge-mode">
+            <p class="mode-choice"><span class="checkbox" id="isMergeChbox"></span><span class="chbox-val">合并2.4G网络和5G网络</span></p>
+            <p class="gray">(合并后，2.4G网络和5G网络公用一个名称和密码)</p> 
+          </div>-->
+          <div class="set-panel wifi-about-account  z12">
+            <div class="mode-set"><span class="mode-name">WiFi网络</span><span class="select-open" id="net2d4G"></span></div>
+            <div class="pt-radius"></div>
+            <div class="pt-con">
+              <div class="field-items">
+                <div class="item">
+                 <label for="routerName1">名称</label>
+                 <div class="item-in">
+                   <input type="text" name="名称" name="name"  class="comn-input" id="routerName1" data-rules="required|nocc|ssid=30" data-required-error="WiFi名称不能为空" data-nocc-error="WiFi名称不能包含中文"  data-ssid-error="WiFi名称最多30个字节" maxlength="30" >
+                 </div>
+                </div>
+                <div class="item">
+                 <label for="routerPassword1">密码</label>
+                 <div class="item-in">
+                  <input type="text" name="名称" name="password"  class="comn-input" id="routerPassword1"  data-rules="required|length=8,32" data-required-error="密码不能为空" data-length-error="密码最少8个字符，最多32个字符" maxlength="32">
+                 </div>
+                </div>
+                <div class="item">
+                 <label for="routerChanelItem">信道</label>
+                 <div class="select" id="routerChanelItem1">
+                   <div class="sel-val" id="routerChanel1">自动<i class="icon-arrow1"></i></div>
+                   <div class="items-box options">
+                   <ul>
+                    <li><span class="text">自动</span><span class="icon-right"></span></li>
+                    <li><span class="text">1</span><span class="icon-right"></span></li>
+                    <li><span class="text">2</span><span class="icon-right"></span></li>
+                    <li><span class="text">3</span><span class="icon-right"></span></li>
+                    <li><span class="text">4</span><span class="icon-right"></span></li>
+                    <li><span class="text">5</span><span class="icon-right"></span></li>
+                    <li><span class="text">6</span><span class="icon-right"></span></li>
+                    <li><span class="text">7</span><span class="icon-right"></span></li>
+                    <li><span class="text">8</span><span class="icon-right"></span></li>
+                    <li><span class="text">9</span><span class="icon-right"></span></li>
+                    <li><span class="text">10</span><span class="icon-right"></span></li>
+                    <li><span class="text">11</span><span class="icon-right"></span></li>
+                    <li><span class="text">12</span><span class="icon-right"></span></li>
+                    <li><span class="text">13</span><span class="icon-right"></span></li>
+                   </ul>
+                  </div>
+                 </div>
+                </div>
+                <p class="mode-choice"><span class="checkbox" id="hideNetForFind1"></span><span class="chbox-val">隐藏本网络不被发现</span></p>
+                 <div class="save-btn" id="saveBtnAboutWifi">保存</div>
+              </div><!--.field-items-->
+            </div>
+            <div class="pb-radius"></div>
+          </div>
+        </form>
+      </div><!--.router-con-->
+   </div>
+  <%include ("footer")%>
+
+</body>
+</html>

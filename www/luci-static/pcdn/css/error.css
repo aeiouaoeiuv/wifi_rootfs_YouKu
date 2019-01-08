@@ -1,0 +1,11 @@
+.error-bg{height: 514px;background: url(../images/login/bg_login.png) top center no-repeat;overflow:hidden;}
+.content-bg{height:282px;background:url(../images/error/content_bg.png) 0  0  repeat-x;margin-top:52px;}
+.error-con{width:566px;margin:0 auto;}
+.error-500{width:216px;height:106px;background: url(../images/error/500error.png) 0 0 no-repeat;float: left;margin-top:10px;}
+.error-403{width:216px;height:55px;background: url(../images/error/403error.png) 0 0 no-repeat;float: left;margin-top:27px;}
+.error-404{width:216px;height:90px;background: url(../images/error/404error.png) 0 0 no-repeat;float: left;margin-top:10px;}
+.error-doc{width:312px;float: left;margin-left:36px;margin-top:30px;color:#999;}
+.error-doc .title{font-size:16px;line-height:25px;color:#000;margin-bottom:22px;}
+.error-why p,.error-do p{margin-top:2px;}
+.error-do{margin:24px 0 22px 0;}
+.green,.green:visited{color:#28a6fd;}

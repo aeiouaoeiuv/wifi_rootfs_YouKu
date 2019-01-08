@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>优酷土豆路由宝--系统信息</title>
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/reset.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/widget.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/page/page_comn.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/icon/comn_icon.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/form/form.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/popup.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/system/system_info.css?lv=<%=luciver%>">
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/lib/jquery.min.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/popup.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/nodeClick.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/validate.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/system/unbinduser.js?lv=<%=luciver%>"></script>
+</head>
+<body>
+   <div class="header">
+     <div class="top-con clrfx">
+        <a href="#" class="logo">优酷土豆路由宝</a>
+        <div class="top-nav">
+          <ul class="clrfx">
+            <li><a href='<%=luci.dispatcher.build_url("admin", "index")%>'>首页</a><i class="border"></i></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin", "wifiset")%>'>路由设置</a><i class="border"></i></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin","devmanage")%>'>设备管理</a></li>
+            <li class="current"><a href='<%=luci.dispatcher.build_url("admin", "systemstate")%>'>系统管理</a></li>
+         </ul>
+        </div>
+        <%include ("header")%>
+     </div> 
+   </div><!--.header-->
+    <div class="bg-nav">
+     <div class="nav-con">
+      <ul class="nav-lists clrfx">
+        <li><a href='<%=luci.dispatcher.build_url("admin", "systemstate")%>'><span class="icon meter"></span><span>系统状态</span></a></li>
+        <li><a href='<%=luci.dispatcher.build_url("admin", "managepassword")%>'><span class="icon key"></span ><span>管理密码</span></a></li>
+        <li class="current"><span class="icon lock"></span><span>帐号绑定</span></li>
+        <li><a href='<%=luci.dispatcher.build_url("admin", "checkupdate")%>'><span class="icon conv"></span><span>系统升级</span></a></li>
+        <li><a href='<%=luci.dispatcher.build_url("admin", "restartrouter")%>'><span class="icon power"></span><span>重启路由</span></a></li>
+        <li class="long"><a href='<%=luci.dispatcher.build_url("admin", "resetfactory")%>'><span class="icon fac-default"></span><span>恢复出厂设置</span></a></li>
+      </ul>
+     </div>
+   </div><!--.bg-nav-->
+   <div class="router-main">
+    <div class="router-con">
+     <input id="footerurl" value='<%=luci.dispatcher.build_url("api","dashboard","getFooterInfo")%>' style="display:none"/>
+     <input id="unbinduserurl" value='<%=luci.dispatcher.build_url("api", "system", "unbindyoukuuser")%>' style="display:none"/>
+     <input id="getSNoneurl" value='<%=luci.dispatcher.build_url("api", "dashboard", "getyoukuinfo")%>' style="display:none"/>
+     <input id="resetbindurl" value='<%=luci.dispatcher.build_url("admin", "bindaccount")%>' style="display:none"/>
+     <div class="bind-account clrfx">
+        <div class="bind-tip fl">
+          <p class="loss">绑定优酷帐号，路由宝帮您攒金币</p>
+          <p class="gray">金币可以换优酷会员、点播电影，还能兑换成现金</p>
+          <div class="pay-img"></div>
+        </div>
+        <div class="remove-bind fl">
+          <div class="account-info">
+            <p class="tt">已绑定优酷帐号：</p>
+            <p class="acc-name"><span id="userName"></span><a href='<%=luci.dispatcher.build_url("admin", "index")%>' class="profit">查看效益</a></p>
+          </div>
+           <div class="action-btn" id="removeBindAccount">解除绑定</div>
+        </div>
+     </div><!--.bind-account-->
+    </div>
+   </div>
+   <%include ("footer")%>
+    <div class="popup popu-info pop-unbind-account" id="popUnbindAccount">
+    <div class="title">
+     <span class="name">解除账号绑定</span><span class="pop-close"></span>
+    </div>
+    <div class="pop-con">
+    <div class="info-pic fl"></div>
+    <div class="con fl">
+    <p>您确定要把本帐号解除绑定吗？</p>
+    <p>解绑需输入当前绑定的帐号的密码。解绑后，本路由的收益将不再进入该帐号。</p>
+    <form class="comn-form">
+     <div class="current-user">
+     <p>当前绑定的优酷帐号：</p>
+     <p id="YKAccountName"></p>
+    </div>
+     <div class="item">
+      <input type="text" class="comn-input gray33" value="优酷账号" data-rules="required" data-required-error="优酷账号不能为空" data-msg="优酷账号" id="youkuAccount" tab-index="1">
+    </div>
+    <div class="relative">
+      <span class="pw-holder">优酷密码</span>
+      <div class="item forget-pass">
+        <input type="password" class="comn-input" id="YKAccountPass" data-rules="required" data-required-error="优酷密码不能为空！" tab-index="2"><a href="http://www.youku.com/user_getPwd/" target=_blank>忘记密码</a>
+      </div>
+    </div>
+    <div class="error-tip" id="accountBindErr" style="visibility: hidden;"></div>
+    <div class="pop-btns">
+     <span class="normal-btn ok" id="unbindBtn">确定解绑</span><span class="gray-btn2 cancel">取消</span>
+     </div>
+   </form>
+   </div>
+  </div>
+</body>
+</html>

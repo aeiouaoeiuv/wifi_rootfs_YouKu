@@ -1,0 +1,399 @@
+<%
+  local CommonFunc = require("luci.common.commonFunc")
+  local remote_addr = luci.http.getenv("REMOTE_ADDR")
+  local mac = luci.sys.net.ip4mac(remote_addr)
+  local wifi_map = CommonFunc.getWifiInfo()
+  local lanType = "line"
+  if wifi_map[mac] ~= nil then
+    lanType = "wifi"
+  end
+%>
+<!DOCTYPE html>
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+  <title>优酷土豆路由宝--路由设置</title>
+   <link rel="stylesheet" type="text/css" href="<%=media%>/css/reset.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/widget.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/page/page_comn.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/icon/comn_icon.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/tab.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/set/router_set.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/form/form.css?lv=<%=luciver%>">
+  <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/popup.css?lv=<%=luciver%>">
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/lib/jquery.min.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/nodeClick.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/tab.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/popup.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/validate.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/doT.js?lv=<%=luciver%>"></script>
+  <script type="text/javascript" charset="utf-8" src="<%=media%>/js/set/seniorSet.js?lv=<%=luciver%>"></script>
+</head>
+<body>
+   <div class="header">
+     <div class="top-con clrfx">
+        <a href="#" class="logo">优酷土豆路由宝</a>
+        <div class="top-nav">
+          <ul class="clrfx">
+            <li><a href='<%=luci.dispatcher.build_url("admin", "index")%>'>首页</a></li>
+            <li class="current"><a href="<%=luci.dispatcher.build_url("admin", "wifiset")%>">路由设置</a></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin","devmanage")%>'>设备管理</a><i class="border"></i></li>
+            <li><a href='<%=luci.dispatcher.build_url("admin", "systemstate")%>'>系统管理</a></li>
+         </ul>
+        </div>
+        <%include ("header")%>
+     </div> 
+   </div><!--.header-->
+   <input id="upnpStatusUrl" type="text" style="display:none" value='<%=luci.dispatcher.build_url("api","network","getUPNPInfo")%>' />                
+   <input id="setUpnpUrl" type="text" style="display:none" value='<%=luci.dispatcher.build_url("api","network","setUPNPInfo")%>' /> 
+   <input id="dnsgeturl" value='<%=luci.dispatcher.build_url("api","network","getDNSInfo")%>' style="display:none">
+   <input id="dnsseturl" value='<%=luci.dispatcher.build_url("api","network","setDNS")%>' style="display:none">
+   <input id="saveMtuUrl" value='<%=luci.dispatcher.build_url("api","network","setMTU")%>' style="display:none">
+   <input id="footerurl" value='<%=luci.dispatcher.build_url("api","dashboard","getFooterInfo")%>' style="display:none"/>
+   <input id="setledurl" value='<%=luci.dispatcher.build_url("api","dashboard","setLEDMode")%>' style="display:none"/>
+   <input id="getledurl" value='<%=luci.dispatcher.build_url("api","network","getLEDMode")%>' style="display:none"/>
+   <input id="lanInfo" type="text" value='<%=luci.dispatcher.build_url("api","network","getLanInfo")%>' style="display:none"/>
+   <input id="conDeviceList" type="text" value='<%=luci.dispatcher.build_url("api","network","getAllDeviceInfo")%>' style="display:none"/>
+   <input id="bindDeviceList" type="text" value='<%=luci.dispatcher.build_url("api","network","getBindDeviceInfo")%>' style="display:none" />
+   <input id="bindUrl" type="text" value='<%=luci.dispatcher.build_url("api","network","bindDevices")%>' style="display:none" />
+   <input id="unbindUrl" type="text" value='<%=luci.dispatcher.build_url("api","network","unbindDevices")%>' style="display:none" />
+	<input id="setLanUrl" type="text" value='<%=luci.dispatcher.build_url("api","network","setLan")%>' style="display:none"/>                                              
+	<input id="setDhcpUrl" type="text" value='<%=luci.dispatcher.build_url("api","network","setLanDHCP")%>' style="display:none"/>
+    <input id="allunBindMacUrl" type="text" value='<%=luci.dispatcher.build_url("api","network","unbindAll")%>' style="display:none"/>
+	<input id="wanInfo" type="text" value='<%=luci.dispatcher.build_url("api","network","getWanInfo")%>' style="display:none"/>
+   <input id="connectiontype" value='<%=lanType%>' style="display:none"/>
+   <div class="bg-nav">
+     <div class="nav-con">
+     <ul class="nav-lists clrfx">
+        <li><a href='<%=luci.dispatcher.build_url("admin", "wifiset")%>'><span class="icon wifi"></span><span>WiFi设置</span></a></li>
+        <li><a href='<%=luci.dispatcher.build_url("admin", "outernetset")%>'><span class="icon outer"></span ><span>外网设置</span></a></li>
+        <li class="current"><span class="icon adv"></span><span>高级设置</span></li>
+     </ul>
+    </div>
+   </div><!--.bg-nav--> 
+   <div class="router-main">
+   <div class="router-con adv-set">
+    <div class="tab clrfx" id="advSetTab">
+      <div class="tab-index">
+           <ul>
+		    <li class="current" data-target="netWorkSet">内网设置<span class="r-arrow"></span><span class="current-arrow"></span></li>
+            <li data-target="DHCPSet">DHCP服务<span class="r-arrow"></span><span class="current-arrow"></span></li>
+		    <li data-target="DNSSet">DNS设置<span class="r-arrow"></span><span class="current-arrow"></span></li>
+			<li data-target="macBind">MAC地址绑定<span class="r-arrow"></span><span class="current-arrow"></span></li>
+            <li data-target="MTUSet">MTU设置<span class="r-arrow"></span><span class="current-arrow"></span></li>
+            <li data-target="lightSet">面板灯设置<span class="r-arrow"></span><span class="current-arrow"></span></li>
+            <li data-target="UPnpSet">UPnP设置<span class="r-arrow"></span><span class="current-arrow"></span></li>
+           </ul>
+       </div><!--.tab-index-->
+       <div class="tab-con" id="seniorNetTabCon">
+	    <div id="netWorkSet" class="tab-panel">
+           <p class="tab-title">设置网关、子网掩码</p>
+           <form action="" class="comn-form network-form" id="innerNetBaseSetForm">
+             <div class="field-items">
+               <div class="item">
+                <label for="netWork">网关</label>
+                 <div class="item-in">
+                 <input type="text" name="network"  class="comn-input" id="netWork" data-rules="required|ip|gate" data-required-error="网关地址不能为空" data-ip-error="网关地址格式不正确" data-gate-error="该网段为预留网段，不能设定">
+                </div>
+              </div>
+              <div class="item">
+                <label for="subNetMask">子网掩码</label>
+                <div class="item-in">
+                 <input type="text" name="network"  class="comn-input" id="subNetMask" data-rules="required|mask" data-required-error="子网掩码不能为空" data-mask-error="子网掩码格式不正确" >
+                </div>
+              </div> 
+               <div class="save-btn" id="saveNetWork">保存</div> 
+             </div><!--.field-items-->
+           </form> 
+          </div><!--#netWorkSet-->
+          <div id="DHCPSet" class="tab-panel" style="display:none">
+            <p class="tab-title">为连接到路由宝的设备自动分配IP地址</p>
+            <form action="" class="comn-form DHCP-set-form" id="DHCPSetForm">
+               <div class="field-items">
+                 <div class="item">
+                  <label>DHCP服务</label><span class="select-open" id="DHCPChange"></span>
+                 </div>
+                 <div class="dhcp-tip1">
+                   <p>如果关闭DHCP服务，路由宝将不再为连接的设备自动分配IP地址，需要</p>
+                   <p>手动为设备设置IP地址、子网掩码、默认网关、DNS服务后才能上网</p>
+                 </div>
+                 <div class="item">
+                  <label>IP分配范围</label>
+                  <span class="dhcp-range">
+                   <span id="ipSection">ip</span>&nbsp;
+                   <input type="text" name="from" class="comn-input short1"  id="rangeFrom1" data-rules="integer|range=1,254" data-range-error="请输入1-254的整数" data-integer-error="请输入1-254的整数">
+                   &nbsp;&nbsp;——&nbsp;&nbsp;
+                   <input type="text" name="to" class="comn-input short1" id="rangeTo1" data-rules="integer|range=1,254|size" data-range-error="请输入1-254的整数" data-integer-error="请输入1-254的整数" data-size-error="输请输入正确的范围">
+                  </span>
+                   <span class="error-tip" id="DHCPErr" style="visibility:hidden"></span>
+               </div>
+               </div>
+               <div class="save-btn" id="saveDHCPSet">保存</div>
+            </form>
+          </div><!--#DHCPSet-->
+          <div id="macBind" class="tab-panel" style="display:none">
+            <p class="tab-title">绑定设备的MAC地址</p>
+            <p class="tab-tip2">绑定后，每次连接时，将给设备分配已绑定的IP地址，即该设备使用固定IP</p>
+            <div class="dev-lists func-panel">
+             <div class="tb-head clrfx">
+              <span class="title">当前连接的设备</span>
+              <div class="func-btns fl">
+               <span class="refresh-btn" id="refreshDevListBtn"><span class="icon-refresh"></span>刷新</span>
+               <span class="refresh-btn" id="refreshLoading" style="display:none"><span class="loading"></span>刷新</span>    
+              </div>
+             </div>
+              <!--表格模板开始-->
+             <script id="devListTemplate" type="text/template">
+               <table class="comn-table" cellpadding="0" cellspacing="1">
+                <tr>
+                     <th class="width1 first"><span class="left-radius"></span>设备</th>
+                     <th class="width2">IP/MAC地址</th>
+                     <th class="width3">连接方式</th>
+                     <th class="width4 last"><span class="right-radius"></span>操作</th>
+                 </tr>
+                 {{ if(!it.data){ }}
+                 <tr class="no-data"><td colspan="4">暂无</td></tr>
+                 {{ }else{ }}
+                 {{ for (var i = 0,l = it.data.length;i < l;i++) { }} 
+                  <tr>
+                   <td>
+                     <div class="td-con">
+                     {{if(it.data[i].devicetype=="PC") { }}
+                      <img src="<%=resource%>/../pcdn/images/devIcon/pc.png">
+                      {{ } else if(it.data[i].devicetype=="android") { }}
+                      	<img src="<%=resource%>/../pcdn/images/devIcon/anType.png">
+                      {{ } else if(it.data[i].devicetype=="iphone") { }}
+                       <img src="<%=resource%>/../pcdn/images/devIcon/apType.png">
+                       {{ } else { }}
+                       	<img src="<%=resource%>/../pcdn/images/devIcon/unknown.png">
+                       {{ } }}
+                        {{if(it.data[i].name=="none"){ }}
+                          {{=(it.data[i].mac).toUpperCase()}}
+                        {{ }else{ }}
+	                      {{=it.data[i].name}}
+	                      {{ } }}
+                     </div>  
+                    </td>
+                    <td>
+                      <div class="td-con">
+                       <p>{{=it.data[i].ip}}</p>
+                       <p>{{=(it.data[i].mac).toUpperCase()}}</p>
+                      </div>
+                    </td>
+                    <td>
+                     <div class="td-con">
+                      {{if(it.data[i].contype=="lan") { }}
+                       <span class="icon-wired"></span><span>有线连接</span>
+                      {{ } else if(it.data[i].contype=="wifi") { }}
+                       <span class="icon-wifi2"></span><span>WiFi连接</span>
+                      {{ } }}
+                     </div>
+                     </td>
+                    <td>
+                    <div class="td-con state">
+                     {{ if((it.data[i].isbinded)=="yes") { }}
+                     <div data-id="{{=it.data[i].mac}}"><span class="icon-right2"></span>已绑定</div>
+                     {{ } else { }}
+                      <span class="blue-btn bind-btn1" data-query="{{=it.data[i].name}}|||{{=it.data[i].ip}}|||{{=it.data[i].mac}}" data-id="{{=it.data[i].mac}}">绑定</span>
+                     {{ } }}
+                    </div>
+                   </td>
+                  </tr>
+                  {{ } }}
+                 {{ } }}
+               </table>
+             </script>
+             <!--表格模板结束-->
+             <div id="currentDevListData">
+              <table class="comn-table" cellpadding="0" cellspacing="1" id="devConnList">
+              <tr><th class="width1 first"><span class="left-radius"></span>设备</th><th class="width2">IP/MAC地址</th><th class="width3">连接方式</th><th class="width4 last"><span class="right-radius"></span>操作</th></tr> 
+               <tr class="load-data">
+                <td colspan="4"><span class="loading"></span><span>正在努力加载中...</span></td>
+              </tr>
+             </table>
+            </div>
+           </div>
+            <div class="dev-lists func-panel">
+              <div class="tb-head clrfx">
+              <span class="title">已绑定MAC地址的设备</span>
+              <div class="adv-opa fr"><a href="javascript:void(0);" id="addMacDev">手动添加</a><span>|</span><a href="javascript:void(0);" id="allUnBindMac">全部解绑</a><span id="noItemsallUnBindMac" style="display:none;font-size:14px;margin:0;">全部解绑</span></div>
+             </div>
+              <!--表格模板开始-->
+             <script id="devBindMacListTemplate" type="text/template">
+               <table class="comn-table mac-bind-table" cellpadding="0" cellspacing="1">
+                <tr>
+                  <th class="width1 first"><span class="left-radius"></span>设备</th>
+                  <th class="width2">IP/MAC地址</th>
+                  <th class="width4 last"><span class="right-radius"></span>操作</th>
+                 </tr>
+                 {{ if(!it.data){ }}
+                 <tr class="no-data"><td colspan="3">暂无</td></tr>
+                 {{ }else{ }}
+                 {{ for (var i = 0,l = it.data.length;i < l;i++) { }} 
+                  <tr>
+                   <td>
+                      <div class="td-con">
+                     {{if(it.data[i].name.indexOf("PC")>-1) { }}
+                      <img src="<%=resource%>/../pcdn/images/devIcon/pc.png">
+                      {{ } else if(it.data[i].name.indexOf("android")>-1) { }}
+                      	<img src="<%=resource%>/../pcdn/images/devIcon/anType.png">
+                      {{ } else if(it.data[i].name.indexOf("iphone")>-1) { }}
+                       <img src="<%=resource%>/../pcdn/images/devIcon/apType.png">
+                       {{ } else { }}
+                       	<img src="<%=resource%>/../pcdn/images/devIcon/unknown.png">
+                       {{ } }}
+                        {{if(it.data[i].name=="none"){ }}
+                        {{=(it.data[i].mac).toUpperCase()}}
+                        {{ }else{ }}
+	                      {{=it.data[i].name}}
+	                      {{ } }}
+                     </div>    
+                    </td>
+                    <td>
+                      <div class="td-con">
+                       <p>{{=it.data[i].ip}}</p>
+                       <p>{{=(it.data[i].mac).toUpperCase()}}</p>
+                      </div>
+                    </td>
+                    <td>
+                    <div class="td-con state">
+                      <span class="blue-btn bind-btn1" data-query="{{=it.data[i].name}}|||{{=it.data[i].ip}}|||{{=it.data[i].mac}}" data-id="{{=it.data[i].mac}}">解绑</span>
+                    </div>
+                   </td>
+                  </tr>
+                  {{ } }}
+                 {{ } }}
+               </table>
+             </script>
+             <!--表格模板结束-->
+             <div id="currentDevBindedData">
+                <table class="comn-table  mac-bind-table" cellpadding="0" cellspacing="1">
+               <tr>
+                <th class="width1 first"><span class="left-radius"></span>设备</th><th class="width2">IP/MAC地址</th><th class="width4 last"><span class="right-radius"></span>操作</th>
+              </tr> 
+              <tr class="load-data">
+               <td colspan="4"><span class="loading"></span><span>正在努力加载中...</span></td>
+              </tr>
+             </table>
+             </div>
+            </div>  
+          </div><!--.#macBind-->
+		<div id="DNSSet" class="tab-panel" style="display:none">
+            <p class="tab-title">设置自定义域名解析</p>
+            <p class="tab-tip2">DNS用于域名解析，通常网络运营商都已实现解析，无需自定义，建议关闭。</p>
+            <form class="comn-form dnsin-form" id="DNSSetForm">
+             <div class="dns-state">
+               <span class="dns-label">自定义DNS</span>&nbsp;&nbsp;
+               <span class="select-open" id="DNSStateChange"></span>
+             </div>                                                                                                                                                                                                                                                                                                                                          
+             <div class="field-items" id="dnsInPutItems" style="display:none;">
+               <div class="item">
+                 <label for="firstDNS">首选DNS</label>
+                 <div class="item-in">
+                  <input type="text"  name="firstDNS"  class="comn-input" id="firstDNS" data-rules="required|ip" data-required-error="首选DNS地址不能为空"  data-ip-error="DNS地址格式不正确">
+                </div>
+               </div>
+                <div class="item">
+                 <label for="spareDNS">备用DNS</label>
+                 <div class="item-in"> 
+                 <input type="text" name="spareDNS" class="comn-input" id="spareDNS" data-rules="ip"   data-ip-error="DNS地址格式不正确">
+                </div>
+               </div>
+             </div>
+             <div class="save-btn" id="saveSetDNS" style="margin-left:93px;">保存</div>
+            </form>
+           </div><!--#DNSSet-->
+           <div id="MTUSet" class="tab-panel" style="display:none">
+             <p class="tab-title">设置TCP/IP协议传输数据时的最大传输单元</p>
+             <p class="tab-tip2">当使用宽带拨号方式接入互联网时才能进行MTU设置。请谨慎操作，更改后可能会引起网络不稳定。</p>
+             <form class="comn-form mtu-set-form" id="MTUSetForm">
+              <div class="field-items">
+                <div class="item">
+                   <label for="MTU">MTU设置</label>
+                   <div class="item-in">
+                   	 <input type="text"  name="MTU" class="comn-input short" id="MTU" data-rules="integer|range=576,1500" data-range-error="MTU设置范围576-1500" data-integer-error="MTU格式不正确">
+                   	</div>
+                </div>
+                <a href="###" class="add-tolink" id="useDefaultMTU">使用默认值</a>
+              </div>
+               <div class="save-btn" id="saveSetMTU">保存</div>
+             </form>
+           </div><!--#MTUSet-->
+        <div id="lightSet" class="tab-panel" style="display:none">
+         <p class="tab-title">设置路由器面板上的灯光模式</p>
+		 <div class="light-senior-set"> 
+          <div class="set-light lgt-smcon clrfx">
+		  <form id="lightsetForm">
+		   <div class="clrfx">
+		     <div class="title">面板灯：</div>
+			 <div class="set-btn" id="modeLightItems">
+             <span class="default-mode current" id="LEDBase">
+               <span class="icon-sun"></span>
+               <p>标准模式</p>
+             </span>
+             <span class="night-mode" id="LEDNight">
+               <span class="icon-moon"></span>
+               <p>夜间模式</p>
+             </span>
+            </div>
+		   </div>
+		   <div class="base-mode" id="lightBaseref">
+		     <p class="ref">路由宝指示灯全天开启</p>
+		   </div>
+           <div class="clrfx" id="lightTimeInput" style="display:none">
+		    <div class="title">关闭时段：</div>
+			<div class="time-range">
+		     <input type="text" name="hourfrom" class="time-input" maxlength="2" value="22" id="hourfrom" data-rules="required|integer|range=0,23"  data-required-error="时间不能为空" data-integer-error="请输入数字" data-range-error="时间错误">&nbsp;:
+			 <input type="text" name="minfrom" class="time-input" maxlength="2" value="00" id="minfrom" data-rules="required|integer|range=0,59"  data-required-error="时间不能为空" data-integer-error="请输入数字" data-range-error="时间错误"">
+		       —
+		     <input type="text" name="hourto" class="time-input" maxlength="2" value="08" id="hourto" data-rules="required|integer|range=0,23"  data-required-error="时间不能为空" data-integer-error="请输入数字" data-range-error="时间错误">&nbsp;:
+			 <input type="text" name="minto" class="time-input" maxlength="2" value="00" id="minto" data-rules="required|integer|range=0,59|sparetime"  data-required-error="时间不能为空" data-integer-error="请输入数字" data-range-error="时间错误" data-sparetime-error="起始时间不能相同">
+		     <!--<p class="ref">全天或在指定时间段内自动关闭灯光</p>-->
+		   </div>
+		    <span class="error-tip" id="LightErr" style="visibility:hidden;"></span>
+		  </div>
+		   <div class="save-btn" id="saveLight">保存</div>
+		   </form>  
+          </div>          
+         </div>
+        </div><!--#lightSet-->
+        <div id="UPnpSet" class="tab-panel" style="display:none">
+          <div class="tab-title">使设备之间可自动连接和协同工作</div>
+          <div class="UPNp-choice">
+              <div class="mode-choice">
+                <span>UPnP状态</span><span class="select-open" id="UPnPChange"></span>
+              </div>
+              <p class="gray font12" style="margin-left:80px;">UPnP（Universal Plug and Play，通用即插即用）主要用于各种设备的智能互联互通，建议开启</p>
+          </div>
+        </div><!--.UPnpSet-->
+    </div><!--.tab-con-->
+    </div>
+   </div>
+  </div>
+ <%include ("footer")%> 
+ <div class="popup pop-form pop-addmac" id="popMacAdd">
+     <div class="title">
+       <span class="name">手动绑定设备的MAC地址</span><span class="pop-close"></span></div>
+       <div class="pop-con">
+        <form class="comn-form">
+         <div class="field-items">
+          <div class="item">
+           <label>IP地址</label>
+            <div class="item-in">
+             <input type="text" data-rules="required|ip"  class="comn-input" id="devAddBindIp" data-required-error="IP地址不能为空" data-ip-error="IP地址格式不正确"></div>
+           </div>
+           <div class="item">
+           <label>MAC地址</label>
+            <div class="item-in">
+             <input type="text"  class="comn-input" id="devAddBindMac" data-rules="required|mac" data-required-error="MAC地址不能为空" data-mac-error="MAC地址格式不正确">
+            </div>
+           </div>
+          </div>
+          <div class="pop-btns">
+            <span class="normal-btn ok" style="margin-left:10px;">绑定</span><span class="gray-btn2 cancel">取消</span>
+         </div>
+        </form>
+      </div>
+     </div>
+</body>
+</html>

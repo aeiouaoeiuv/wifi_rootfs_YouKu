@@ -1,0 +1,6 @@
+DISTRIB_ID="OpenWrt"
+DISTRIB_RELEASE="Bleeding Edge"
+DISTRIB_REVISION="1.1"
+DISTRIB_CODENAME="youku-openwrt"
+DISTRIB_TARGET="ramips/mt7620a"
+DISTRIB_DESCRIPTION="OpenWrt Youku-OpenWrt 1.1"

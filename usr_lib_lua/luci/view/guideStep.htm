@@ -1,0 +1,197 @@
+<%
+  local CommonFunc = require("luci.common.commonFunc")
+  local initflag = CommonFunc.getrouterinit()
+  if initflag and initflag ~= ""  then
+    luci.http.redirect(luci.dispatcher.build_url("admin", "index"))
+  end
+  
+  local remote_addr = luci.http.getenv("REMOTE_ADDR")
+  local mac = luci.sys.net.ip4mac(remote_addr)
+  local wifi_map = CommonFunc.getWifiInfo()
+  local lanType = "line"
+  if wifi_map[mac] ~= nil then
+    lanType = "wifi"
+  end
+  local routerpid = CommonFunc.getrouterpid()
+%>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	<meta http-equiv="Access-Control-Allow-Origin" content="*" />
+    <title>优酷土豆路由宝--快速配置</title>
+    <link rel="stylesheet" type="text/css" href="<%=media%>/css/reset.css?lv=<%=luciver%>">
+    <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/widget.css?lv=<%=luciver%>">
+    <link rel="stylesheet" type="text/css" href="<%=media%>/css/icon/comn_icon.css?lv=<%=luciver%>">
+    <link rel="stylesheet" type="text/css" href="<%=media%>/css/form/form.css?lv=<%=luciver%>">
+    <link rel="stylesheet" type="text/css" href="<%=media%>/css/widget/popup.css?lv=<%=luciver%>">
+    <link rel="stylesheet" type="text/css" href="<%=media%>/css/guide/guide_step.css?lv=<%=luciver%>">
+</head>
+<body>
+ <input id="getssidurl" value='<%=luci.dispatcher.build_url("api","network","getWifiSSID")%>' style="display:none"/>
+ <input id="pppoeStartUrl" value='<%=luci.dispatcher.build_url("api","network","pppoeStart")%>' style="display:none">
+ <input id="pppoeStopUrl" value='<%=luci.dispatcher.build_url("api","network","pppoeStop")%>' style="display:none">
+ <input id="getPPPoEStatusUrl" value='<%=luci.dispatcher.build_url("api","network","getPPPoEStatus")%>' style="display:none">
+ <input id="footerurl" value='<%=luci.dispatcher.build_url("api","dashboard","getFooterInfoForguide")%>' style="display:none"/>
+ <input id="setbindinfourl" value='<%=luci.dispatcher.build_url("api", "system", "setuserbindinfo")%>' style="display:none"/>
+ <%- if initflag == nil or initflag == "" then %>
+     <input id="saveWanUrl" value='<%=luci.dispatcher.build_url("api","network","setWanForguide")%>' style="display:none">
+	 <input id="binduserurl" value='<%=luci.dispatcher.build_url("api", "system", "bindyoukuuserForguide")%>' style="display:none">
+	 <input id="setWifiInfo" value='<%=luci.dispatcher.build_url("api", "network", "setWifiAndAdminforguide")%>' style="display:none">
+     <input id="saveStatus" value='<%=luci.dispatcher.build_url("api","network","actionStatusForguide")%>' style="display:none">
+ <% else %>
+     <input id="saveWanUrl" value='<%=luci.dispatcher.build_url("api","network","setWan")%>' style="display:none">
+	 <input id="binduserurl" value='<%=luci.dispatcher.build_url("api", "system", "bindyoukuuser")%>' style="display:none">
+	 <input id="setWifiInfo" value='<%=luci.dispatcher.build_url("api", "network", "setWifiAndAdmin")%>' style="display:none">
+     <input id="saveStatus" value='<%=luci.dispatcher.build_url("api","network","actionStatus")%>' style="display:none">
+ <% end -%>
+ <input id="connectiontype" value='<%=lanType%>' style="display:none"/>
+ <input id="routerpid" value='<%=routerpid%>' style="display:none"/>
+ <div class="guide-header-bg">
+  <div class="guide-header">
+   <div class="top-logo clrfx">
+    <div class="logo fl">
+     <span class="logo-pic"></span><span>优酷土豆路由宝</span>
+   </div>
+    <div class="explain fl">只需两步，就能完成配置，设置路由宝就是这么简单</div>
+   </div>
+  </div>
+ </div>
+ <div class="guide-con">
+ <div class="step-indexs clrfx" id="stepIndexs">
+   <div class="first-index">
+     <div class="first num-btn" data-target="connModeChange"></div>
+     <p class="txt">设置路由宝接入互联网的方式</p>
+   </div>
+    <div class="second-index">
+         <div class="second num-btn" data-target="bindAccount"></div>
+         <p class="txt">设置WiFi名称和密码</p>
+     </div>
+ </div>
+ <div class="guide-container">
+  <div class="guide-scroll" id="guideScroll">
+    <div class="guide-tab-con">
+      <div class="conn-mode" id="connModeChange">
+       <form class="comn-form" id="modeChangeSet">
+        <div class="field-items">
+         <div class="item" style="position:relative;">
+            <div class="pppoe-state">
+              <span class="tt" id="pppoeStateNotice"></span>
+              <a href="###" id="disConnectBtn" style="display:none;">断开连接</a>
+             </div>
+             <label>联网方式</label>
+            <div class="select-overlay" id="disableSelectConnType" style="display:none;"></div>
+            <div class="select" id="routerChanelItem1">
+             <div class="sel-val">宽带拨号<i class="icon-arrow1"></i></div>
+              <ul class="options">
+                <li data-val="1"><span class="text">宽带拨号</span><span class="icon-right"></span></li>
+                <li data-val="2"><span class="text">动态IP</span><span class="icon-right"></span></li>
+                <!--li data-val="3"><span class="text">静态IP</span><span class="icon-right"></span></li-->
+              </ul>
+            </div>
+        </div><!--.item-->
+        <div id="broadbandDialUp" class="hide">
+         <div class="item">
+           <label>宽带账号</label>
+            <div class="item-in">
+            <input type="text" name="broadband-user" data-rules="required" data-required-error="宽带账号不能为空"  class="comn-input" id="broadbandUser">
+            </div>
+         </div>
+         <div class="item">
+            <label>密码</label>
+            <div class="item-in">
+             <input type="password" name="broadband-user"  class="comn-input" id="broadbandPass" data-rules="required" data-required-error="宽带密码不能为空">
+            </div>
+         </div>
+        </div><!--#broadbandDialUp-->
+        <div id="staticIp" class="hide">
+          <div class="item">
+            <label for="staticIpVal">IP地址</label>
+            <div class="item-in">
+             <input type="text" name="static-ip" class="comn-input" id="staticIpVal" data-rules="required|ip" data-required-error="IP地址不能为空" data-ip-error="ip地址格式不正确">
+            </div>
+          </div>
+          <div class="item">
+             <label for="subnetMask">子网掩码</label>
+             <div class="item-in">
+              <input type="text" name="subnet-mask"  class="comn-input" id="subnetMask" data-rules="required|mask" data-required-error="子网掩码不能为空" data-mask-error="子网掩码格式不正确">
+             </div>
+          </div>
+          <div class="item">
+             <label for="defaultGateway">默认网关</label>
+             <div class="item-in">
+              <input type="text" name="default-gateway"   class="comn-input" id="defaultGateway" data-rules="required|ip" data-required-error="网关不能为空" data-ip-error="网关格式不正确">
+             </div>
+          </div>
+         </div><!--#staticIp-->
+       </div>
+       <div class="next-go pppoe-btn">
+        <a href="javascript:void(0);" class="action-btn" id="setNetConnType">下一步</a><span class="skip" data-index="1">以后再说</span>
+       </div>
+      </form>
+     </div>
+    </div><!--.guide-tab-con-->
+   <div class="guide-tab-con">
+    <div class="set-wifi-account" id="setWifiAccount">
+     <form class="comn-form">
+      <p class="title">您的手机、笔记本等无线设备可以通过本WiFi访问互联网</p>
+      <div class="field-items">
+        <div class="item">
+          <label for="wifiName">WiFi名称</label>
+          <div class="item-in">
+            <input type="text" value="Youku-518a" name="wifi-name" class="comn-input" id="wifiName" data-rules="required|nocc|ssid=30"  data-required-error="WiFi名称不能为空" data-nocc-error="WiFi名称不能包含中文"  data-ssid-error="WiFi名称最多30个字节" maxlength="30" >
+          </div>
+         </div>
+         <div class="item">
+           <label for="wifiPassword">WiFi密码</label>
+           <div class="item-in">
+             <input type="text"  name="wifi-password" class="comn-input" id="wifiPassword" data-rules="required|length=8,32" data-required-error="WiFi密码不能为空" data-length-error="密码最少8个字符，最多32个字符" maxlength="32">
+            <p class="mode-choice"><span class="checkboxed" id="passwordSame"></span><span class="chbox-val">同时作为路由器管理密码</span></p>
+           </div>
+          </div>
+         <div class="item hide" id="adminPassContainer">
+           <label for="adminPassword">管理密码</label>
+           <div class="item-in">
+            <input type="text"  name="admin-password" class="comn-input" id="adminPassword" data-rules="required|length=8,32" data-required-error="管理密码不能为空" data-length-error="密码最少8个字符，最多32个字符" maxlength="32">
+            </div>
+          </div>
+        </div>
+        <div class="guide-save">
+          <span class="prev-step" id="prevStepWiFi">上一步</span><div class="save-btn" id="guideSetNowSave">保存</div>
+       </div>
+     </form>
+	 <%- if lanType == "line" then %>
+      <div class="guide-success hide" id="guideSuccessCon">
+      <p class="succ-tip clrfx"><span class="icon-success fl"></span><span class="fl txt">恭喜！已完成路由宝配置。</span></p>
+      <p class="wifi-name"><span class="gray66">WiFi名称为</span>：<span class="gray333" id="TheWifiName"></span> </p>
+      <p class="safe-tip">您的无线设备需要重新连接本WiFi</p>
+      <a href='<%=luci.dispatcher.build_url()%>' class="action-btn">立刻体验</a>
+	  <% else %>
+	  <div class="guide-success hide" id="guideSuccessCon">
+      <p class="succ-tip clrfx"><span class="icon-success fl"></span><span class="fl txt">恭喜！已完成路由宝配置。</span></p>
+	  <p class="safe-tip org-fc0" id="wifimoderef1">本设备已和路由宝断开连接</p>
+      <p class="wifi-name org-fc0" id="wifimoderef2"><span>请重新连接到WiFi</span>：<span id="TheWifiName"></span> </p>
+      <a href='<%=luci.dispatcher.build_url()%>' class="action-btn" id="btnFinishSet">立刻体验</a>
+	  <% end -%>
+     </div>
+    </div><!--.#set-wifi-account-->
+   </div><!--.guide-tab-con-->
+  </div><!--.guide-scroll-->
+ </div><!--.guide-container-->
+ </div>
+<div class="page-footer">
+    <p>
+    <span>系统版本：</span><span id="sysversion" class="np"></span><span> MAC地址：</span><span id="MacAddr" class="np"></span><span> WAN IP地址：</span><span id="wanIP"></span>
+     </p>
+    <p>
+    <span class="np">© 2015 优酷土豆路由宝</span><span> 微信公众号：</span><span id="routerQQ" class="np" style="display:none"></span><span id="routerWX" class="np"></span><span> 服务热线：</span><span id="routerHotline"></span>
+     </p>
+   </div>
+ <script type="text/javascript" charset="utf-8" src="<%=media%>/js/lib/jquery.min.js?lv=<%=luciver%>"></script>
+ <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/nodeClick.js?lv=<%=luciver%>"></script>
+ <script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/validate.js?lv=<%=luciver%>"></script>
+<script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/popup.js?lv=<%=luciver%>"></script>
+<script type="text/javascript" charset="utf-8" src="<%=media%>/js/plug/xhr.js?lv=<%=luciver%>"></script>
+<script type="text/javascript" charset="utf-8" src="<%=media%>/js/guide/guide_step.js?lv=<%=luciver%>"></script>
+</body>
+</html>

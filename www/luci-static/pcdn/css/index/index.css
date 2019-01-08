@@ -1,0 +1,127 @@
+@charset "utf-8";
+.index-bg{height:527px;background:url(../../images/index/bg_index.png) top center no-repeat;overflow-y:hidden;}
+.index-con{width:990px;height:527px;margin:0 auto;position:relative;font-size:14px;background:url(../../images/index/bg_indexcon.png) 0 0 no-repeat;}
+.wf-green,
+.wf-default,
+.wf-strong,
+.wf-close,
+.user-open,
+.user-close,
+.light-open,
+.light-close{
+  background:url(../../images/index/manage_btns.png) 0 0 no-repeat;
+  width:42px;height:42px;position:absolute;z-index:12;display:block;cursor:pointer;
+ }
+.router-manage{height:258px;position:relative;}
+.router-manage .blue-btn{width:100px;height:34px;line-height:34px;position:absolute;bottom:0;z-index:10;}
+.router-manage .dev-set{left:50px;}
+.router-manage .net-set,.router-manage .test-speed{right:66px;}
+.dev-counts{position:absolute;left:220px;top:128px;color:#2e2927;z-index:10;}
+.dev-counts .num{font-size:18px;}
+.disconn{position:absolute;width:180px;top:128px;right:186px;text-align:center;color:#2e2927;}
+.disconn .icon-error{display:block;margin:0 auto;}
+.router-features{width:246px;height:222px;position:absolute;top:36px;left:364px;z-index:10;}
+.wf-green,.wf-default,.wf-strong,.wf-close,.wf-open{left:36px;top:36px;}
+.wf-green{background-position:-84px 0;}
+.wf-green:hover{background-position:-126px 0;}
+.wf-default{background-position:-168px 0;}
+.wf-default:hover{background-position:-210px 0;}
+.wf-strong{background-position:-252px 0;}
+.wf-strong:hover{background-position:-294px 0;}
+.wf-close{background-position:0 0;}
+.wf-close:hover{background-position:-42px 0;}
+.user-open{background-position:-84px -43px;left:103px;top:7px;}
+.user-open:hover{background-position:-126px -43px;}
+.user-close{background-position:0 -43px;left:103px;top:7px;}
+.user-close:hover{background-position:-42px -43px;left:103px;top:7px;}
+.light-manage .status{margin-top:10px;}
+.light-open{background-position:0 -85px;left:172px;top:36px;}
+.light-open:hover{background-position:-42px -85px;}
+.light-close{background-position:-84px -85px;left:172px;top:36px;}
+.light-close:hover{background-position:-126px -85px;}
+.base-info{position:relative;left:66px;top:66px;width:116px;text-align:center;font-size:12px;}
+.icon-router{height:97px;background:url(../../images/index/router.png) 0 0 no-repeat;z-index:12;display:block;}
+.unbind-user{width:538px;color:#333;text-align:center;position:absolute;left:254px;top:347px;z-index:12;}
+.app-bg{width:538px;height:134px;background:url(../../images/index/piggy2.png) 0 0 no-repeat;position:relative;}
+.cm-info{color:#999;font-size:12px;margin:3px 0 0 8px;}
+.cm-info .icon-info {margin-right: 6px;margin-top: -1px;}
+.app-tip{text-align:left;position: absolute;left:112px;top:-14px;z-index:14;}
+.app-tip2{color:#999;margin-top:16px;font-size:12px;line-height:16px;}
+.bind-btn{width:144px;height:50px;text-align:center;line-height:50px;color:#fff;background-color:#f25d50;display: block;position: absolute;z-index:14;bottom:0;left:180px;-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;border-radius:2px;font-size:16px;}
+.bind-btn:visited{color:#fff;}
+.bind-btn:hover{color:#fff;background-color:#e5463a;}
+.wifi-manage,.visitor-manage,.light-manage{width:242px;height:242px;background:url(../../images/index/bg_round.png) 0 0 no-repeat;position:absolute;top:36px;left:368px;z-index:10;}
+.close-btn{display:block;position:absolute;top:30px;left:200px;z-index:12;cursor:pointer;}
+.p2p-app .icon-info{margin-right:6px;}
+.mod-list{margin:54px 0 0 64px;}
+.mod-list li{font-size:12px;margin-bottom:5px;height:26px;line-height:26px;padding:0 24px 0 4px;width:90px;position:relative;background-color:#fff;border: solid 1px #fff;}
+.strength-title{color:#999;font-size:12px;margin:6px 0 0 4px;}
+.mod-items{margin-top:4px;}
+.start-select{line-height:32px;}
+.select-open{margin-left:18px;}
+.select-close{margin-left:18px;cursor:pointer;}
+.mod-list .mod-name{float:left;}
+.mod-list .signal-weak,
+.mod-list .signal-default,
+.mod-list .signal-strong{float:right;margin-top:6px;}
+.mod-list .hover{background-color:#e6f6fc;border:solid 1px #def3fb;-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;border-radius:2px;}
+.visitor-manage .mod-list{margin:74px 0 0 38px;}
+.visitor-manage.start-select{margin-left:10px;}
+.visitor-manage .tmptip{color:#999;line-height:16px;margin-top:18px;margin-right:20px;}
+.strength-tip{color:#999;line-height:16px;margin-top:18px;margin-right:20px;}
+.light-manage .set-light{margin-top:50px;text-align:center;}
+.mod-items .icon-right{display:block;position:absolute;left:-20px;top:8px;z-index:14;}
+.network-speed{position:absolute;width:180px;top:130px;right:186px;left:670px;text-align:left;}
+.network-speed .icon-down,.network-speed .icon-upload{vertical-align:middle;margin-right:8px;}
+.upload-speed{margin-top:14px;}
+.router-app{width:398px;position:absolute;left:306px;top:322px; z-index:10;}
+.router-app .h-left{float: left;margin-left:28px;_display:inline;}
+.what-gold{width:16px;height: 16px;background:url(../../images/index/icon_question.png) 0 0 no-repeat;float: left;margin: 2px 0 0 4px;}
+.router-app .bind-user{color:#999;font-size:12px;margin-top:-2px;}
+.app-header .h-right{float: right;margin-right:25px;_display:inline;}
+.router-app .app-mode,.router-app .select2{float:left;}
+.router-app .select2 .sel-val{float:left;border:none;padding:1px 25px 1px 5px;background:none;}
+.router-app .select2 .sel-val:hover{border:solid 1px #d7dadd;padding:0 24px 0 4px;}
+.router-app .pos-move{margin-left:16px;display: inline-block;}
+.profit{width:298px;border:solid 1px #cfddde;margin-top:10px;}
+.profit .num{font-size:20px;}
+.everyday-profit{padding:14px 0;}
+.recently{margin:8px 10px 0 10px;border-bottom:solid 1px #f1f7f7;padding-bottom:8px;}
+.today-profit,.yesterday-profit,.total-profit{float:left;_display: inline;}
+.today-profit{margin-left:28px;}
+.today-profit .num{color:#f2220f;}
+.yesterday-profit{margin-left:45px;}
+.profit-title{margin-top:26px;}
+.total-profit{margin-left:38px;}
+.total-profit .flag{color:#999;}
+.profit .date{color:#333;margin-bottom:2px;}
+.total-title{margin-right:10px;}
+.remind{margin-top:4px;color:#999;font-size:12px;}
+.manage-gold{font-size:12px;color:#333;position: relative;margin-top:14px;}
+.manage-btn,.get-btn{width:96px;height:37px;background:url(../../images/index/btn_CoinManager.png) 0 0 no-repeat;display: inline-block;position: absolute;top:2px;right:0;z-index: 10;}
+.manage-btn{background-position: 0 0;}
+.manage-btn:hover{background-position:-96px 0;}
+.get-btn{background-position:0 -37px;}
+.get-btn:hover{background-position:-96px -37px;}
+.app-golds{width:127px;height:99px;background:url(../../images/index/youkuCoins.png) 0 0 no-repeat; position: absolute;left:260px;top:28px;z-index:10;}
+.gold{width:11px;height:28px;background:url(../../images/index/gold.png) 0 0 no-repeat;display:block;position:absolute;top:-28px;left:70px;z-index:12;}
+.icon-arrow1{width:10px;height:5px;background-position:-60px -53px;display:inline-block;margin-left:4px;vertical-align:middle;_overflow:hidden;}
+.unbind-user .cm-info{width:300px;margin-left: 0;}
+.p2p-disconn{position: absolute;top:324px;left:292px;width:398px;text-align: center;}
+.p2p-disconn .now-state{color:#333;}
+.p2p-disconn .please-do{color:#656464;font-size:12px;}
+.p2p-disconn .golds{width:80px;height:89px;background:url(../../images/index/golds.png) 0 0 no-repeat;margin:16px auto 16px auto;}
+.p2p-disconn .gold-can{color:#999;font-size:12px;}
+.update-pop{width:448px;height:332px;left:50%;top:50%;display: block;margin-left:-250px;margin-top:-180px;z-index:150;}
+.update-pop .text-tip{margin:0 80px 0 80px;}
+.update-pop .pl{margin:20px 0 8px 0;color:#000;font-size:12px;font-weight: bold;}
+.update-pop .tt{margin-top:20px;color:#000;font-weight: bold;}
+.update-pop .pop-btns{height:40px;bottom:45px;right:78px;}
+.update-pop .pop-btns .gray-btn2{margin-left:30px;}
+.update-pop .pop-btns .normal-btn,
+.update-pop .pop-btns .gray-btn2{width:120px;height:40px;line-height:40px;}
+.tip{width:128px;height:40px;line-height:40px;font-size:14px;color:#fff;text-align:center;background-color:#707070;-webkit-border-radius:4px;-moz-border-radius:4px;-ms-border-radius:4px;border-radius:4px;}
+.tip span{*vertical-align:middle;display:inline-block;}
+.tip .right,.tip .warn{background:url(../../images/widget/tip_icon.png) 0 0 no-repeat; display:inline-block;margin-right:7px;_margin-top:4px;}
+.tip .right{width:12px;height:9px;background-position:-2px -3px;}
+.tip .warn{width:16px;height:13px;background-position:0 -18px;}

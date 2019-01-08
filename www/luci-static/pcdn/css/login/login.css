@@ -1,0 +1,30 @@
+@charset "utf-8";
+.login-container{height:514px;background: url(../../images/login/bg_login.png) top center no-repeat;}
+.login-con{width:340px; margin:0 auto; padding-top:70px;height:488px;} 
+.logo{width:96px; height:94px; background: url(../../images/login/logo.png) 0 0 no-repeat; margin: 0 auto;}
+.wel-txt{width:264px; height:23px; background: url(../../images/login/font_pic.png) 0 0 no-repeat; margin: 18px auto 0;}
+.login-panel{width:340px;margin-top:44px;}
+.t-radius,.b-radius{width:340px; height:14px; background: url(../../images/login/bg_panel.png) 0 0 no-repeat;}
+.m-border{border-left:solid 1px #bfbfbf;border-right:solid 1px #bfbfbf;background-color: #f1f1f1;}
+.form-container{width:338px;overflow: hidden;position: relative;}
+.form-panels{width:680px;}
+.form-panels .panel{width:338px;float: left;}
+.b-radius{background-position:0 -14px;}
+.login-form{width:260px;margin: 0 auto;padding:4px 0;}
+.login-form label{color:#666;}
+.login-form .field-con{width:258px;}
+.code-con .field-con{width:138px;float:left;margin-top:0;}
+.skip-panel{color:#333;}
+.icon-key{display:block;position:absolute;top:9px;left:10px;z-index:12;}
+.admin-pass,.sn-str{width:210px;height:34px;margin-left:30px;padding:0 5px;border:0;outline:none;line-height:34px\9;}
+.code-con .check-code{width:118px;height:34px;padding:0 10px;border:0;outline:0;line-height:34px\9;}
+.label-tt{position: absolute;width:20px; height:36px;display:block;line-height:36px;text-align:center;left:10px;top:4px;}
+.login-submit{width:260px;height:50px;background-color:#1fbf41;color:#fff;border:none;font-size:16px;font-family:"Microsoft YaHei","微软雅黑";margin-top:10px;cursor:pointer;-webkit-border-radius:2px;-moz-border-radius:2px;-ms-border-radius:2px;border-radius:2px;outline:none;}
+.login-submit:hover{background-color:#23d04b;}
+.err-tip{height:16px;line-height:16px;text-align:center;background-color:#fcebe9;border:solid 1px #f1c4c0;color:#f25d50;margin:10px 0 12px 0;padding:5px 0;visibility:hidden;}
+.err-tip span{display: inline-block;vertical-align:text-top;}
+.err-tip .icon-warn{margin-right:5px;}
+.page-footer{text-align:center;color:#666;}
+.page-footer span{display:inline-block;margin-right:16px;}
+.code-con{margin-top:10px;}
+.code-con .pic-code{width:108px;height:42px;border:none;float:right;border:solid 1px #d0d0d0;}

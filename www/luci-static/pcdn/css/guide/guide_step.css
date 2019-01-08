@@ -1,0 +1,66 @@
+@charset "utf-8";
+.guide-header-bg{height:127px;background:url(../../images/guide/guideStepBg.png) top center no-repeat;}
+.guide-header{width:990px;margin:0 auto;}
+.guide-header .logo-pic{width:32px;height:32px;background:url(../../images/guide/logo.png) 0 0 no-repeat;display:inline-block;margin-right:10px;}
+.guide-header .logo span{vertical-align:middle;}
+.guide-header .logo{font-size:18px;}
+.guide-header .explain{color:#666;line-height:30px;margin-left:62px;}
+.guide-header .top-logo{padding:18px 0 0 18px;}
+.guide-container{width:990px;margin:0 auto;*position:relative;overflow:hidden;}
+.guide-scroll{width:1980px;}
+.guide-tab-con{width:990px; margin:0 auto; float:left;}
+.guide-con{width:990px;margin:0 auto;position:relative;padding-bottom:20px;}
+.step-indexs{_position:relative;margin-top:-38px;}
+.first-index,.second-index,.third-index{width:210px;text-align:center;float:left;_display:inline;}
+.first-index{margin-left:212px;}
+.second-index{margin-left:112px;}
+.third-index{margin-left:115px;}
+.step-indexs .txt{color:#bfbfbf;font-size:16px;margin-top:9px;}
+.first-index .txt{color:#333;}
+.step-indexs .num-btn{width:64px;height:65px;background:url(../../images/guide/stepPoint.png) 0 0 no-repeat;display:inline-block;}
+.step-indexs .current .txt{color:#333;}
+.step-indexs .finish .num-btn{background-position:-128px -67px;}
+.step-indexs .finish .txt{color:#333;}
+.step-indexs .current .first{background-position:0 0;}
+.step-indexs .second{background-position:0 -67px;}
+.step-indexs .current .second{background-position:-64px 0;}
+.step-indexs .third{background-position:-64px -67px;}
+.step-indexs .current .third{background-position:-128px 0;}
+.conn-mode{margin-left:186px;padding-top:22px;height:370px;}
+.conn-mode .tt{margin-bottom:6px;margin-left:90px;font-size:14px;}
+/*.conn-mode .error-tip{margin:8px 0 0 90px;}*/
+.next-go{margin:11px 0 0  90px;}
+.pppoe-btn{margin-top:36px;}
+.bind-account .next-go{margin-left:0;}
+.next-go .action-btn{display: inline-block;}
+.skip{cursor:pointer;display:inline-block;vertical-align:middle;margin-left:25px;}
+.skip:hover{color:#00a7e4;}
+.bind-account{margin:46px 0 80px 292px;}
+.guide-con .title{font-size:14px;color:#666;}
+.set-wifi-account .comn-form .save-btn{margin:0;display: inline-block;*display: inline;*zoom:1;}
+.set-wifi-account .comn-form{margin:42px 0 0 190px;}
+.set-wifi-account .title{margin-left:24px;}
+.guide-success{font-size:14px;margin:54px 0 0 284px;padding-bottom:50px;width:560px;}
+.icon-success{width:48px;height:52px;background:url(../../images/guide/icon_success.png) 0 0 no-repeat;display:inline-block;vertical-align:middle;}
+.succ-tip{font-size:24px;color:#333;line-height:28px;}
+.succ-tip .txt{margin:24px 0 0 10px;color:#999;}
+.page-footer{text-align:center;color:#666;text-align:center;margin-top:45px;}
+.guide-success .wifi-name{margin:8px 0 8px 60px;}
+.safe-tip{margin-left:60px;color:#bfbfbf;}
+.org-fc0{color:#ffcc00;}
+.guide-success .action-btn,.guide-success .disable-btn{margin:25px 0 0 110px;}
+.guide-save{margin:36px 0 0 0;}
+.no-label{*width:696px;}
+.pppoe-state{margin-bottom:6px;}
+.pppoe-state .tt, .pppoe-state a{display:inline-block;}
+.pppoe-state a{color:#0079c1;margin-left:45px;}
+.pppoe-state a:visited{color:#0079c1;}
+.set-wifi-account .load-btn{width:240px;}
+.binded-account{text-align:center;margin-top:74px;font-size:14px;}
+.binded-account .tt{color:#bebebf;font-size:14px;}
+.binded-account .account-name{font-size:20px;margin:12px 0 74px 0;}
+.prev-step{display: inline-block;margin-right: 20px;vertical-align:middle;cursor: pointer;}
+.set-wifi-account .prev-step{margin-left:90px;}
+.set-wifi-account .prev-step:hover{color:#00a7e4;}
+.wifi-reconn-tip{color: #f25d50;background: #fcebe9;border: solid 1px #f25d50;line-height: 24px;width: 300px;text-align:center;margin: 14px 0 0 58px;}
+.page-footer .np{margin-right:14px;}
